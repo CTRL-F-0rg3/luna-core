@@ -1,2 +1,7 @@
-/target
-/models
+# Rust build artifacts (any depth)
+target/
+**/target/
+
+# Modele STT (duże pliki binarne)
+**/models/
+**/*.bin
