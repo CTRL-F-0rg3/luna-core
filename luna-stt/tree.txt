@@ -1,0 +1,2559 @@
+.
+├── build.rs
+├── Cargo.lock
+├── Cargo.toml
+├── cpp
+│   ├── luna_stt.cpp
+│   ├── luna_stt.h
+│   └── whisper.cpp
+│       ├── AGENTS.md
+│       ├── AUTHORS
+│       ├── bindings
+│       │   ├── CMakeLists.txt
+│       │   ├── go
+│       │   │   ├── doc.go
+│       │   │   ├── examples
+│       │   │   │   ├── go-model-download
+│       │   │   │   │   ├── context.go
+│       │   │   │   │   └── main.go
+│       │   │   │   └── go-whisper
+│       │   │   │       ├── color.go
+│       │   │   │       ├── flags.go
+│       │   │   │       ├── main.go
+│       │   │   │       └── process.go
+│       │   │   ├── go.mod
+│       │   │   ├── go.sum
+│       │   │   ├── LICENSE
+│       │   │   ├── Makefile
+│       │   │   ├── params.go
+│       │   │   ├── pkg
+│       │   │   │   └── whisper
+│       │   │   │       ├── consts.go
+│       │   │   │       ├── context.go
+│       │   │   │       ├── context_test.go
+│       │   │   │       ├── doc.go
+│       │   │   │       ├── interface.go
+│       │   │   │       ├── model.go
+│       │   │   │       ├── model_test.go
+│       │   │   │       └── util_test.go
+│       │   │   ├── README.md
+│       │   │   ├── samples
+│       │   │   │   └── jfk.wav
+│       │   │   ├── whisper.go
+│       │   │   └── whisper_test.go
+│       │   ├── java
+│       │   │   ├── build.gradle
+│       │   │   ├── gradle
+│       │   │   │   └── wrapper
+│       │   │   │       ├── gradle-wrapper.jar
+│       │   │   │       └── gradle-wrapper.properties
+│       │   │   ├── gradle.properties
+│       │   │   ├── gradlew
+│       │   │   ├── gradlew.bat
+│       │   │   ├── README.md
+│       │   │   ├── settings.gradle
+│       │   │   └── src
+│       │   │       ├── main
+│       │   │       │   └── java
+│       │   │       │       └── io
+│       │   │       │           └── github
+│       │   │       │               └── ggerganov
+│       │   │       │                   └── whispercpp
+│       │   │       │                       ├── bean
+│       │   │       │                       │   └── WhisperSegment.java
+│       │   │       │                       ├── callbacks
+│       │   │       │                       │   ├── GgmlAbortCallback.java
+│       │   │       │                       │   ├── WhisperEncoderBeginCallback.java
+│       │   │       │                       │   ├── WhisperLogitsFilterCallback.java
+│       │   │       │                       │   ├── WhisperNewSegmentCallback.java
+│       │   │       │                       │   └── WhisperProgressCallback.java
+│       │   │       │                       ├── ggml
+│       │   │       │                       │   ├── GgmlTensor.java
+│       │   │       │                       │   └── GgmlType.java
+│       │   │       │                       ├── model
+│       │   │       │                       │   ├── EModel.java
+│       │   │       │                       │   ├── WhisperModel.java
+│       │   │       │                       │   ├── WhisperModelLoader.java
+│       │   │       │                       │   ├── WhisperState.java
+│       │   │       │                       │   └── WhisperTokenData.java
+│       │   │       │                       ├── params
+│       │   │       │                       │   ├── BeamSearchParams.java
+│       │   │       │                       │   ├── CBool.java
+│       │   │       │                       │   ├── GreedyParams.java
+│       │   │       │                       │   ├── WhisperAhead.java
+│       │   │       │                       │   ├── WhisperAheads.java
+│       │   │       │                       │   ├── WhisperContextParams.java
+│       │   │       │                       │   ├── WhisperFilters.java
+│       │   │       │                       │   ├── WhisperFullParams.java
+│       │   │       │                       │   ├── WhisperHParams.java
+│       │   │       │                       │   └── WhisperSamplingStrategy.java
+│       │   │       │                       ├── WhisperConstants.java
+│       │   │       │                       ├── WhisperContext.java
+│       │   │       │                       ├── WhisperCpp.java
+│       │   │       │                       └── WhisperCppJnaLibrary.java
+│       │   │       └── test
+│       │   │           └── java
+│       │   │               └── io
+│       │   │                   └── github
+│       │   │                       └── ggerganov
+│       │   │                           └── whispercpp
+│       │   │                               ├── WhisperCppTest.java
+│       │   │                               └── WhisperJnaLibraryTest.java
+│       │   ├── javascript
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── emscripten.cpp
+│       │   │   ├── libwhisper.worker.js
+│       │   │   ├── package-tmpl.json
+│       │   │   ├── README.md
+│       │   │   └── whisper.js
+│       │   └── ruby
+│       │       ├── CHANGELOG.md
+│       │       ├── ext
+│       │       │   ├── dependencies_for_windows.rb
+│       │       │   ├── dependencies.rb
+│       │       │   ├── extconf.rb
+│       │       │   ├── options_for_windows.rb
+│       │       │   ├── options.rb
+│       │       │   ├── ruby_whisper.c
+│       │       │   ├── ruby_whisper_context.c
+│       │       │   ├── ruby_whisper_context_params.c
+│       │       │   ├── ruby_whisper_error.c
+│       │       │   ├── ruby_whisper.h
+│       │       │   ├── ruby_whisper_log_queue.c
+│       │       │   ├── ruby_whisper_log_settable.h
+│       │       │   ├── ruby_whisper_model.c
+│       │       │   ├── ruby_whisper_parakeet.c
+│       │       │   ├── ruby_whisper_parakeet_context.c
+│       │       │   ├── ruby_whisper_parakeet_context_params.c
+│       │       │   ├── ruby_whisper_parakeet_model.c
+│       │       │   ├── ruby_whisper_parakeet_params.c
+│       │       │   ├── ruby_whisper_parakeet_segment.c
+│       │       │   ├── ruby_whisper_parakeet_token.c
+│       │       │   ├── ruby_whisper_parakeet_transcribe.cpp
+│       │       │   ├── ruby_whisper_params.c
+│       │       │   ├── ruby_whisper_segment.c
+│       │       │   ├── ruby_whisper_token.c
+│       │       │   ├── ruby_whisper_transcribe.cpp
+│       │       │   ├── ruby_whisper_vad_context.c
+│       │       │   ├── ruby_whisper_vad_context_detect.cpp
+│       │       │   ├── ruby_whisper_vad_params.c
+│       │       │   ├── ruby_whisper_vad_segment.c
+│       │       │   ├── ruby_whisper_vad_segments.c
+│       │       │   └── sources
+│       │       │       └── CMakeGraphVizOptions.cmake
+│       │       ├── extsources.rb
+│       │       ├── lib
+│       │       │   └── whisper
+│       │       │       ├── log_settable.rb
+│       │       │       ├── model
+│       │       │       │   └── uri.rb
+│       │       │       └── output.rb
+│       │       ├── Rakefile
+│       │       ├── README.md
+│       │       ├── sig
+│       │       │   └── whisper.rbs
+│       │       ├── test
+│       │       │   ├── helper.rb
+│       │       │   ├── jfk_reader
+│       │       │   │   ├── extconf.rb
+│       │       │   │   └── jfk_reader.c
+│       │       │   ├── test_callback.rb
+│       │       │   ├── test_context_params.rb
+│       │       │   ├── test_error.rb
+│       │       │   ├── test_model.rb
+│       │       │   ├── test_package.rb
+│       │       │   ├── test_parakeet_callback.rb
+│       │       │   ├── test_parakeet_context_params.rb
+│       │       │   ├── test_parakeet_context.rb
+│       │       │   ├── test_parakeet_model.rb
+│       │       │   ├── test_parakeet_params.rb
+│       │       │   ├── test_parakeet.rb
+│       │       │   ├── test_parakeet_segment.rb
+│       │       │   ├── test_parakeet_token.rb
+│       │       │   ├── test_params.rb
+│       │       │   ├── test_segment.rb
+│       │       │   ├── test_token.rb
+│       │       │   ├── test_vad_context.rb
+│       │       │   ├── test_vad_params.rb
+│       │       │   ├── test_vad.rb
+│       │       │   ├── test_vad_segment.rb
+│       │       │   ├── test_vad_segments.rb
+│       │       │   └── test_whisper.rb
+│       │       └── whispercpp.gemspec
+│       ├── build-xcframework.sh
+│       ├── ci
+│       │   ├── README.md
+│       │   ├── ruleset-nightly.json
+│       │   ├── ruleset-official.json
+│       │   └── run.sh
+│       ├── cmake
+│       │   ├── arm64-apple-clang.cmake
+│       │   ├── arm64-windows-llvm.cmake
+│       │   ├── arm64-windows-llvm-cuda.cmake
+│       │   ├── build-info.cmake
+│       │   ├── DefaultTargetOptions.cmake
+│       │   ├── FindFFmpeg.cmake
+│       │   ├── git-vars.cmake
+│       │   ├── parakeet-config.cmake.in
+│       │   ├── parakeet.pc.in
+│       │   ├── riscv64-spacemit-linux-gnu-gcc.cmake
+│       │   ├── whisper-config.cmake.in
+│       │   ├── whisper.pc.in
+│       │   └── x64-windows-llvm.cmake
+│       ├── CMakeLists.txt
+│       ├── CMakePresets.json
+│       ├── CONTRIBUTING.md
+│       ├── examples
+│       │   ├── addon.node
+│       │   │   ├── addon.cpp
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── index.js
+│       │   │   ├── package.json
+│       │   │   ├── package-lock.json
+│       │   │   ├── README.md
+│       │   │   ├── __test__
+│       │   │   │   └── whisper.spec.js
+│       │   │   └── vad-example.js
+│       │   ├── bench
+│       │   │   ├── bench.cpp
+│       │   │   ├── CMakeLists.txt
+│       │   │   └── README.md
+│       │   ├── bench.wasm
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── emscripten.cpp
+│       │   │   ├── index-tmpl.html
+│       │   │   └── README.md
+│       │   ├── cli
+│       │   │   ├── cli.cpp
+│       │   │   ├── CMakeLists.txt
+│       │   │   └── README.md
+│       │   ├── CMakeLists.txt
+│       │   ├── coi-serviceworker.js
+│       │   ├── command
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── command.cpp
+│       │   │   ├── commands.txt
+│       │   │   └── README.md
+│       │   ├── command.wasm
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── emscripten.cpp
+│       │   │   ├── index-tmpl.html
+│       │   │   └── README.md
+│       │   ├── common.cpp
+│       │   ├── common-ggml.cpp
+│       │   ├── common-ggml.h
+│       │   ├── common.h
+│       │   ├── common-sdl.cpp
+│       │   ├── common-sdl.h
+│       │   ├── common-whisper.cpp
+│       │   ├── common-whisper.h
+│       │   ├── deprecation-warning
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── deprecation-warning.cpp
+│       │   │   └── README.md
+│       │   ├── ffmpeg-transcode.cpp
+│       │   ├── generate-karaoke.sh
+│       │   ├── grammar-parser.cpp
+│       │   ├── grammar-parser.h
+│       │   ├── helpers.js
+│       │   ├── json.hpp
+│       │   ├── livestream.sh
+│       │   ├── lsp
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── lsp.cpp
+│       │   │   ├── README.md
+│       │   │   └── whisper.vim
+│       │   ├── miniaudio.h
+│       │   ├── parakeet-cli
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── parakeet-cli.cpp
+│       │   │   └── README.md
+│       │   ├── parakeet-quantize
+│       │   │   ├── CMakeLists.txt
+│       │   │   └── parakeet-quantize.cpp
+│       │   ├── python
+│       │   │   ├── test_whisper_processor.py
+│       │   │   └── whisper_processor.py
+│       │   ├── quantize
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── quantize.cpp
+│       │   │   └── README.md
+│       │   ├── server
+│       │   │   ├── bench.js
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── httplib.h
+│       │   │   ├── README.md
+│       │   │   └── server.cpp
+│       │   ├── server.py
+│       │   ├── stb_vorbis.c
+│       │   ├── stream
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── README.md
+│       │   │   └── stream.cpp
+│       │   ├── stream.wasm
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── emscripten.cpp
+│       │   │   ├── index-tmpl.html
+│       │   │   └── README.md
+│       │   ├── sycl
+│       │   │   ├── build.sh
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── ls-sycl-device.cpp
+│       │   │   ├── README.md
+│       │   │   └── run-whisper.sh
+│       │   ├── talk-llama
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── eleven-labs.py
+│       │   │   ├── prompts
+│       │   │   │   └── talk-alpaca.txt
+│       │   │   ├── README.md
+│       │   │   ├── speak
+│       │   │   ├── speak.bat
+│       │   │   ├── speak.ps1
+│       │   │   └── talk-llama.cpp
+│       │   ├── test-cmake
+│       │   │   ├── build-install.sh
+│       │   │   ├── build.sh
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── README.md
+│       │   │   └── test-cmake.cpp
+│       │   ├── twitch.sh
+│       │   ├── vad-speech-segments
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── README.md
+│       │   │   └── speech.cpp
+│       │   ├── wchess
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── libwchess
+│       │   │   │   ├── Chessboard.cpp
+│       │   │   │   ├── Chessboard.h
+│       │   │   │   ├── CMakeLists.txt
+│       │   │   │   ├── test-chessboard.cpp
+│       │   │   │   ├── WChess.cpp
+│       │   │   │   └── WChess.h
+│       │   │   ├── README.md
+│       │   │   ├── wchess.cmd
+│       │   │   │   ├── CMakeLists.txt
+│       │   │   │   └── wchess.cmd.cpp
+│       │   │   └── wchess.wasm
+│       │   │       ├── chessboardjs-1.0.0
+│       │   │       │   ├── css
+│       │   │       │   │   ├── chessboard-1.0.0.css
+│       │   │       │   │   └── chessboard-1.0.0.min.css
+│       │   │       │   ├── img
+│       │   │       │   │   └── chesspieces
+│       │   │       │   │       └── wikipedia
+│       │   │       │   │           ├── bB.png
+│       │   │       │   │           ├── bK.png
+│       │   │       │   │           ├── bN.png
+│       │   │       │   │           ├── bP.png
+│       │   │       │   │           ├── bQ.png
+│       │   │       │   │           ├── bR.png
+│       │   │       │   │           ├── wB.png
+│       │   │       │   │           ├── wK.png
+│       │   │       │   │           ├── wN.png
+│       │   │       │   │           ├── wP.png
+│       │   │       │   │           ├── wQ.png
+│       │   │       │   │           └── wR.png
+│       │   │       │   └── js
+│       │   │       │       ├── chessboard-1.0.0
+│       │   │       │       │   ├── CHANGELOG.md
+│       │   │       │       │   ├── LICENSE.md
+│       │   │       │       │   ├── package.json
+│       │   │       │       │   └── README.md
+│       │   │       │       ├── chessboard-1.0.0.js
+│       │   │       │       └── chessboard-1.0.0.min.js
+│       │   │       ├── CMakeLists.txt
+│       │   │       ├── index-tmpl.html
+│       │   │       ├── jquery-3.7.1.min.js
+│       │   │       └── wchess.wasm.cpp
+│       │   ├── whisper.android
+│       │   │   ├── app
+│       │   │   │   ├── build.gradle
+│       │   │   │   ├── proguard-rules.pro
+│       │   │   │   └── src
+│       │   │   │       ├── androidTest
+│       │   │   │       │   └── java
+│       │   │   │       │       └── com
+│       │   │   │       │           └── whispercppdemo
+│       │   │   │       │               └── ExampleInstrumentedTest.kt
+│       │   │   │       ├── main
+│       │   │   │       │   ├── AndroidManifest.xml
+│       │   │   │       │   ├── java
+│       │   │   │       │   │   └── com
+│       │   │   │       │   │       └── whispercppdemo
+│       │   │   │       │   │           ├── MainActivity.kt
+│       │   │   │       │   │           ├── media
+│       │   │   │       │   │           │   └── RiffWaveHelper.kt
+│       │   │   │       │   │           ├── recorder
+│       │   │   │       │   │           │   └── Recorder.kt
+│       │   │   │       │   │           └── ui
+│       │   │   │       │   │               ├── main
+│       │   │   │       │   │               │   ├── MainScreen.kt
+│       │   │   │       │   │               │   └── MainScreenViewModel.kt
+│       │   │   │       │   │               └── theme
+│       │   │   │       │   │                   ├── Color.kt
+│       │   │   │       │   │                   ├── Theme.kt
+│       │   │   │       │   │                   └── Type.kt
+│       │   │   │       │   └── res
+│       │   │   │       │       ├── drawable
+│       │   │   │       │       │   ├── ic_launcher_background.xml
+│       │   │   │       │       │   └── ic_launcher_foreground.xml
+│       │   │   │       │       ├── mipmap-anydpi
+│       │   │   │       │       │   └── ic_launcher.xml
+│       │   │   │       │       ├── values
+│       │   │   │       │       │   ├── strings.xml
+│       │   │   │       │       │   └── themes.xml
+│       │   │   │       │       └── xml
+│       │   │   │       │           ├── backup_rules.xml
+│       │   │   │       │           └── data_extraction_rules.xml
+│       │   │   │       └── test
+│       │   │   │           └── java
+│       │   │   │               └── com
+│       │   │   │                   └── whispercppdemo
+│       │   │   │                       └── ExampleUnitTest.kt
+│       │   │   ├── build.gradle
+│       │   │   ├── gradle
+│       │   │   │   └── wrapper
+│       │   │   │       ├── gradle-wrapper.jar
+│       │   │   │       └── gradle-wrapper.properties
+│       │   │   ├── gradle.properties
+│       │   │   ├── gradlew
+│       │   │   ├── gradlew.bat
+│       │   │   ├── lib
+│       │   │   │   ├── build.gradle
+│       │   │   │   └── src
+│       │   │   │       └── main
+│       │   │   │           ├── AndroidManifest.xml
+│       │   │   │           ├── java
+│       │   │   │           │   └── com
+│       │   │   │           │       └── whispercpp
+│       │   │   │           │           └── whisper
+│       │   │   │           │               ├── LibWhisper.kt
+│       │   │   │           │               └── WhisperCpuConfig.kt
+│       │   │   │           └── jni
+│       │   │   │               └── whisper
+│       │   │   │                   ├── CMakeLists.txt
+│       │   │   │                   └── jni.c
+│       │   │   ├── README.md
+│       │   │   └── settings.gradle
+│       │   ├── whisper.android.java
+│       │   │   ├── app
+│       │   │   │   ├── build.gradle
+│       │   │   │   ├── proguard-rules.pro
+│       │   │   │   └── src
+│       │   │   │       ├── androidTest
+│       │   │   │       │   └── java
+│       │   │   │       │       └── com
+│       │   │   │       │           └── litongjava
+│       │   │   │       │               └── whisper
+│       │   │   │       │                   └── android
+│       │   │   │       │                       └── java
+│       │   │   │       │                           └── ExampleInstrumentedTest.java
+│       │   │   │       ├── main
+│       │   │   │       │   ├── AndroidManifest.xml
+│       │   │   │       │   ├── assets
+│       │   │   │       │   │   └── logback.xml
+│       │   │   │       │   ├── java
+│       │   │   │       │   │   └── com
+│       │   │   │       │   │       ├── litongjava
+│       │   │   │       │   │       │   └── whisper
+│       │   │   │       │   │       │       └── android
+│       │   │   │       │   │       │           └── java
+│       │   │   │       │   │       │               ├── app
+│       │   │   │       │   │       │               │   └── App.java
+│       │   │   │       │   │       │               ├── bean
+│       │   │   │       │   │       │               │   └── WhisperSegment.java
+│       │   │   │       │   │       │               ├── MainActivity.java
+│       │   │   │       │   │       │               ├── services
+│       │   │   │       │   │       │               │   └── WhisperService.java
+│       │   │   │       │   │       │               ├── single
+│       │   │   │       │   │       │               │   └── LocalWhisper.java
+│       │   │   │       │   │       │               ├── task
+│       │   │   │       │   │       │               │   ├── LoadModelTask.java
+│       │   │   │       │   │       │               │   └── TranscriptionTask.java
+│       │   │   │       │   │       │               └── utils
+│       │   │   │       │   │       │                   ├── AssetUtils.java
+│       │   │   │       │   │       │                   └── WaveEncoder.java
+│       │   │   │       │   │       └── whispercpp
+│       │   │   │       │   │           └── java
+│       │   │   │       │   │               └── whisper
+│       │   │   │       │   │                   ├── CpuInfo.java
+│       │   │   │       │   │                   ├── WhisperContext.java
+│       │   │   │       │   │                   ├── WhisperCpuConfig.java
+│       │   │   │       │   │                   ├── WhisperLib.java
+│       │   │   │       │   │                   └── WhisperUtils.java
+│       │   │   │       │   ├── jni
+│       │   │   │       │   │   └── whisper
+│       │   │   │       │   │       ├── CMakeLists.txt
+│       │   │   │       │   │       └── jni.c
+│       │   │   │       │   └── res
+│       │   │   │       │       ├── drawable
+│       │   │   │       │       │   └── ic_launcher_background.xml
+│       │   │   │       │       ├── drawable-v24
+│       │   │   │       │       │   └── ic_launcher_foreground.xml
+│       │   │   │       │       ├── layout
+│       │   │   │       │       │   └── activity_main.xml
+│       │   │   │       │       ├── mipmap-anydpi-v26
+│       │   │   │       │       │   ├── ic_launcher_round.xml
+│       │   │   │       │       │   └── ic_launcher.xml
+│       │   │   │       │       ├── mipmap-hdpi
+│       │   │   │       │       │   ├── ic_launcher.png
+│       │   │   │       │       │   └── ic_launcher_round.png
+│       │   │   │       │       ├── mipmap-mdpi
+│       │   │   │       │       │   ├── ic_launcher.png
+│       │   │   │       │       │   └── ic_launcher_round.png
+│       │   │   │       │       ├── mipmap-xhdpi
+│       │   │   │       │       │   ├── ic_launcher.png
+│       │   │   │       │       │   └── ic_launcher_round.png
+│       │   │   │       │       ├── mipmap-xxhdpi
+│       │   │   │       │       │   ├── ic_launcher.png
+│       │   │   │       │       │   └── ic_launcher_round.png
+│       │   │   │       │       ├── mipmap-xxxhdpi
+│       │   │   │       │       │   ├── ic_launcher.png
+│       │   │   │       │       │   └── ic_launcher_round.png
+│       │   │   │       │       ├── values
+│       │   │   │       │       │   ├── colors.xml
+│       │   │   │       │       │   ├── strings.xml
+│       │   │   │       │       │   └── themes.xml
+│       │   │   │       │       └── values-night
+│       │   │   │       │           └── themes.xml
+│       │   │   │       └── test
+│       │   │   │           └── java
+│       │   │   │               └── com
+│       │   │   │                   └── litongjava
+│       │   │   │                       └── whisper
+│       │   │   │                           └── android
+│       │   │   │                               └── java
+│       │   │   │                                   └── ExampleUnitTest.java
+│       │   │   ├── build.gradle
+│       │   │   ├── gradle
+│       │   │   │   └── wrapper
+│       │   │   │       ├── gradle-wrapper.jar
+│       │   │   │       └── gradle-wrapper.properties
+│       │   │   ├── gradle.properties
+│       │   │   ├── gradlew
+│       │   │   ├── gradlew.bat
+│       │   │   ├── README_files
+│       │   │   │   └── 1.jpg
+│       │   │   ├── README.md
+│       │   │   └── settings.gradle
+│       │   ├── whisper.nvim
+│       │   │   ├── README.md
+│       │   │   └── whisper.nvim
+│       │   ├── whisper.objc
+│       │   │   ├── README.md
+│       │   │   ├── whisper.objc
+│       │   │   │   ├── AppDelegate.h
+│       │   │   │   ├── AppDelegate.m
+│       │   │   │   ├── Assets.xcassets
+│       │   │   │   │   ├── AccentColor.colorset
+│       │   │   │   │   │   └── Contents.json
+│       │   │   │   │   ├── AppIcon.appiconset
+│       │   │   │   │   │   └── Contents.json
+│       │   │   │   │   └── Contents.json
+│       │   │   │   ├── Base.lproj
+│       │   │   │   │   ├── LaunchScreen.storyboard
+│       │   │   │   │   └── Main.storyboard
+│       │   │   │   ├── Info.plist
+│       │   │   │   ├── main.m
+│       │   │   │   ├── SceneDelegate.h
+│       │   │   │   ├── SceneDelegate.m
+│       │   │   │   ├── ViewController.h
+│       │   │   │   └── ViewController.m
+│       │   │   └── whisper.objc.xcodeproj
+│       │   │       ├── project.pbxproj
+│       │   │       └── project.xcworkspace
+│       │   │           ├── contents.xcworkspacedata
+│       │   │           └── xcshareddata
+│       │   │               └── IDEWorkspaceChecks.plist
+│       │   ├── whisper.swiftui
+│       │   │   ├── README.md
+│       │   │   ├── whisper.cpp.swift
+│       │   │   │   └── LibWhisper.swift
+│       │   │   ├── whisper.swiftui.demo
+│       │   │   │   ├── Models
+│       │   │   │   │   ├── Model.swift
+│       │   │   │   │   └── WhisperState.swift
+│       │   │   │   ├── Resources
+│       │   │   │   │   ├── models
+│       │   │   │   │   └── samples
+│       │   │   │   ├── Supporting files
+│       │   │   │   │   ├── Assets.xcassets
+│       │   │   │   │   │   ├── AccentColor.colorset
+│       │   │   │   │   │   │   └── Contents.json
+│       │   │   │   │   │   ├── AppIcon.appiconset
+│       │   │   │   │   │   │   └── Contents.json
+│       │   │   │   │   │   └── Contents.json
+│       │   │   │   │   ├── Preview Content
+│       │   │   │   │   │   └── Preview Assets.xcassets
+│       │   │   │   │   │       └── Contents.json
+│       │   │   │   │   └── WhisperCppDemo.entitlements
+│       │   │   │   ├── UI
+│       │   │   │   │   ├── ContentView.swift
+│       │   │   │   │   └── DownloadButton.swift
+│       │   │   │   ├── Utils
+│       │   │   │   │   ├── Recorder.swift
+│       │   │   │   │   └── RiffWaveUtils.swift
+│       │   │   │   └── WhisperCppDemoApp.swift
+│       │   │   └── whisper.swiftui.xcodeproj
+│       │   │       ├── project.pbxproj
+│       │   │       ├── project.xcworkspace
+│       │   │       │   └── xcshareddata
+│       │   │       │       └── IDEWorkspaceChecks.plist
+│       │   │       └── xcshareddata
+│       │   │           └── xcschemes
+│       │   │               └── WhisperCppDemo.xcscheme
+│       │   ├── whisper.wasm
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── emscripten.cpp
+│       │   │   ├── index-tmpl.html
+│       │   │   └── README.md
+│       │   └── yt-wsp.sh
+│       ├── ggml
+│       │   ├── cmake
+│       │   │   ├── common.cmake
+│       │   │   ├── FindNCCL.cmake
+│       │   │   ├── ggml-config.cmake.in
+│       │   │   └── GitVars.cmake
+│       │   ├── CMakeLists.txt
+│       │   ├── include
+│       │   │   ├── ggml-alloc.h
+│       │   │   ├── ggml-backend.h
+│       │   │   ├── ggml-blas.h
+│       │   │   ├── ggml-cann.h
+│       │   │   ├── ggml-cpp.h
+│       │   │   ├── ggml-cpu.h
+│       │   │   ├── ggml-cuda.h
+│       │   │   ├── ggml-et.h
+│       │   │   ├── ggml.h
+│       │   │   ├── ggml-hexagon.h
+│       │   │   ├── ggml-metal.h
+│       │   │   ├── ggml-opencl.h
+│       │   │   ├── ggml-openvino.h
+│       │   │   ├── ggml-opt.h
+│       │   │   ├── ggml-rpc.h
+│       │   │   ├── ggml-sycl.h
+│       │   │   ├── ggml-virtgpu.h
+│       │   │   ├── ggml-vulkan.h
+│       │   │   ├── ggml-webgpu.h
+│       │   │   ├── ggml-zdnn.h
+│       │   │   ├── ggml-zendnn.h
+│       │   │   └── gguf.h
+│       │   └── src
+│       │       ├── CMakeLists.txt
+│       │       ├── ggml-alloc.c
+│       │       ├── ggml-backend.cpp
+│       │       ├── ggml-backend-dl.cpp
+│       │       ├── ggml-backend-dl.h
+│       │       ├── ggml-backend-impl.h
+│       │       ├── ggml-backend-meta.cpp
+│       │       ├── ggml-backend-reg.cpp
+│       │       ├── ggml-blas
+│       │       │   ├── CMakeLists.txt
+│       │       │   └── ggml-blas.cpp
+│       │       ├── ggml.c
+│       │       ├── ggml-cann
+│       │       │   ├── aclnn_ops.cpp
+│       │       │   ├── aclnn_ops.h
+│       │       │   ├── acl_tensor.cpp
+│       │       │   ├── acl_tensor.h
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── common.h
+│       │       │   └── ggml-cann.cpp
+│       │       ├── ggml-common.h
+│       │       ├── ggml.cpp
+│       │       ├── ggml-cpu
+│       │       │   ├── amx
+│       │       │   │   ├── amx.cpp
+│       │       │   │   ├── amx.h
+│       │       │   │   ├── common.h
+│       │       │   │   ├── mmq.cpp
+│       │       │   │   └── mmq.h
+│       │       │   ├── arch
+│       │       │   │   ├── arm
+│       │       │   │   │   ├── cpu-feats.cpp
+│       │       │   │   │   ├── quants.c
+│       │       │   │   │   └── repack.cpp
+│       │       │   │   ├── loongarch
+│       │       │   │   │   └── quants.c
+│       │       │   │   ├── powerpc
+│       │       │   │   │   ├── cpu-feats.cpp
+│       │       │   │   │   └── quants.c
+│       │       │   │   ├── riscv
+│       │       │   │   │   ├── cpu-feats.cpp
+│       │       │   │   │   ├── quants.c
+│       │       │   │   │   └── repack.cpp
+│       │       │   │   ├── s390
+│       │       │   │   │   ├── cpu-feats.cpp
+│       │       │   │   │   ├── quants.c
+│       │       │   │   │   └── repack.cpp
+│       │       │   │   ├── wasm
+│       │       │   │   │   └── quants.c
+│       │       │   │   └── x86
+│       │       │   │       ├── cpu-feats.cpp
+│       │       │   │       ├── quants.c
+│       │       │   │       └── repack.cpp
+│       │       │   ├── arch-fallback.h
+│       │       │   ├── binary-ops.cpp
+│       │       │   ├── binary-ops.h
+│       │       │   ├── cmake
+│       │       │   │   ├── FindSIMD.cmake
+│       │       │   │   └── FindSMTIME.cmake
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── common.h
+│       │       │   ├── ggml-cpu.c
+│       │       │   ├── ggml-cpu.cpp
+│       │       │   ├── ggml-cpu-impl.h
+│       │       │   ├── hbm.cpp
+│       │       │   ├── hbm.h
+│       │       │   ├── kleidiai
+│       │       │   │   ├── CMakeLists.txt
+│       │       │   │   ├── kernels.cpp
+│       │       │   │   ├── kernels.h
+│       │       │   │   ├── kleidiai.cpp
+│       │       │   │   └── kleidiai.h
+│       │       │   ├── llamafile
+│       │       │   │   ├── sgemm.cpp
+│       │       │   │   └── sgemm.h
+│       │       │   ├── ops.cpp
+│       │       │   ├── ops.h
+│       │       │   ├── quants.c
+│       │       │   ├── quants.h
+│       │       │   ├── repack.cpp
+│       │       │   ├── repack.h
+│       │       │   ├── simd-gemm.h
+│       │       │   ├── simd-mappings.h
+│       │       │   ├── spacemit
+│       │       │   │   ├── ime1_kernels.cpp
+│       │       │   │   ├── ime2_kernels.cpp
+│       │       │   │   ├── ime.cpp
+│       │       │   │   ├── ime_env.cpp
+│       │       │   │   ├── ime_env.h
+│       │       │   │   ├── ime.h
+│       │       │   │   ├── ime_kernels.h
+│       │       │   │   ├── repack.cpp
+│       │       │   │   ├── repack.h
+│       │       │   │   ├── rvv_kernels.cpp
+│       │       │   │   ├── rvv_kernels.h
+│       │       │   │   ├── spine_barrier.h
+│       │       │   │   ├── spine_mem_pool.cpp
+│       │       │   │   ├── spine_mem_pool.h
+│       │       │   │   └── spine_tcm.h
+│       │       │   ├── tiled
+│       │       │   │   ├── tiled.cpp
+│       │       │   │   ├── tiled.h
+│       │       │   │   ├── tiled-kernel.cpp
+│       │       │   │   └── tiled-kernel.h
+│       │       │   ├── traits.cpp
+│       │       │   ├── traits.h
+│       │       │   ├── unary-ops.cpp
+│       │       │   ├── unary-ops.h
+│       │       │   ├── vec.cpp
+│       │       │   └── vec.h
+│       │       ├── ggml-cuda
+│       │       │   ├── acc.cu
+│       │       │   ├── acc.cuh
+│       │       │   ├── add-id.cu
+│       │       │   ├── add-id.cuh
+│       │       │   ├── allreduce.cu
+│       │       │   ├── allreduce.cuh
+│       │       │   ├── arange.cu
+│       │       │   ├── arange.cuh
+│       │       │   ├── argmax.cu
+│       │       │   ├── argmax.cuh
+│       │       │   ├── argsort.cu
+│       │       │   ├── argsort.cuh
+│       │       │   ├── batch-get.cu
+│       │       │   ├── batch-get.cuh
+│       │       │   ├── binbcast.cu
+│       │       │   ├── binbcast.cuh
+│       │       │   ├── clamp.cu
+│       │       │   ├── clamp.cuh
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── col2im-1d.cu
+│       │       │   ├── col2im-1d.cuh
+│       │       │   ├── common.cuh
+│       │       │   ├── concat.cu
+│       │       │   ├── concat.cuh
+│       │       │   ├── conv2d.cu
+│       │       │   ├── conv2d.cuh
+│       │       │   ├── conv2d-dw.cu
+│       │       │   ├── conv2d-dw.cuh
+│       │       │   ├── conv2d-transpose.cu
+│       │       │   ├── conv2d-transpose.cuh
+│       │       │   ├── conv3d.cu
+│       │       │   ├── conv3d.cuh
+│       │       │   ├── convert.cu
+│       │       │   ├── convert.cuh
+│       │       │   ├── conv-transpose-1d.cu
+│       │       │   ├── conv-transpose-1d.cuh
+│       │       │   ├── count-equal.cu
+│       │       │   ├── count-equal.cuh
+│       │       │   ├── cp-async.cuh
+│       │       │   ├── cpy.cu
+│       │       │   ├── cpy.cuh
+│       │       │   ├── cpy-utils.cuh
+│       │       │   ├── cross-entropy-loss.cu
+│       │       │   ├── cross-entropy-loss.cuh
+│       │       │   ├── cumsum.cu
+│       │       │   ├── cumsum.cuh
+│       │       │   ├── dequantize.cuh
+│       │       │   ├── diag.cu
+│       │       │   ├── diag.cuh
+│       │       │   ├── diagmask.cu
+│       │       │   ├── diagmask.cuh
+│       │       │   ├── dsv4-hc.cu
+│       │       │   ├── dsv4-hc.cuh
+│       │       │   ├── fattn-common.cuh
+│       │       │   ├── fattn.cu
+│       │       │   ├── fattn.cuh
+│       │       │   ├── fattn-mma-f16.cuh
+│       │       │   ├── fattn-tile.cu
+│       │       │   ├── fattn-tile.cuh
+│       │       │   ├── fattn-vec.cuh
+│       │       │   ├── fill.cu
+│       │       │   ├── fill.cuh
+│       │       │   ├── fwht.cu
+│       │       │   ├── fwht.cuh
+│       │       │   ├── gated_delta_net.cu
+│       │       │   ├── gated_delta_net.cuh
+│       │       │   ├── gated-delta-net-mma.cu
+│       │       │   ├── gated-delta-net-mma.cuh
+│       │       │   ├── getrows.cu
+│       │       │   ├── getrows.cuh
+│       │       │   ├── ggml-cuda.cu
+│       │       │   ├── gla.cu
+│       │       │   ├── gla.cuh
+│       │       │   ├── im2col.cu
+│       │       │   ├── im2col.cuh
+│       │       │   ├── lightning-indexer.cu
+│       │       │   ├── lightning-indexer.cuh
+│       │       │   ├── mean.cu
+│       │       │   ├── mean.cuh
+│       │       │   ├── mma.cuh
+│       │       │   ├── mmf.cu
+│       │       │   ├── mmf.cuh
+│       │       │   ├── mmid.cu
+│       │       │   ├── mmid.cuh
+│       │       │   ├── mmq-config-ampere.cuh
+│       │       │   ├── mmq-config-blackwell.cuh
+│       │       │   ├── mmq-config-cdna.cuh
+│       │       │   ├── mmq-config-gcn.cuh
+│       │       │   ├── mmq-config-pascal-dp4a.cuh
+│       │       │   ├── mmq-config-pascal-older.cuh
+│       │       │   ├── mmq-config-rdna2.cuh
+│       │       │   ├── mmq-config-rdna3-5.cuh
+│       │       │   ├── mmq-config-rdna3.cuh
+│       │       │   ├── mmq-config-rdna4.cuh
+│       │       │   ├── mmq.cu
+│       │       │   ├── mmq.cuh
+│       │       │   ├── mmq-load-tiles.cuh
+│       │       │   ├── mmq-vec-dot.cuh
+│       │       │   ├── mmvf.cu
+│       │       │   ├── mmvf.cuh
+│       │       │   ├── mmvq.cu
+│       │       │   ├── mmvq.cuh
+│       │       │   ├── moe-weighted-reduction.cu
+│       │       │   ├── moe-weighted-reduction.cuh
+│       │       │   ├── norm.cu
+│       │       │   ├── norm.cuh
+│       │       │   ├── opt-step-adamw.cu
+│       │       │   ├── opt-step-adamw.cuh
+│       │       │   ├── opt-step-sgd.cu
+│       │       │   ├── opt-step-sgd.cuh
+│       │       │   ├── out-prod.cu
+│       │       │   ├── out-prod.cuh
+│       │       │   ├── pad.cu
+│       │       │   ├── pad.cuh
+│       │       │   ├── pad_reflect_1d.cu
+│       │       │   ├── pad_reflect_1d.cuh
+│       │       │   ├── pool1d.cu
+│       │       │   ├── pool1d.cuh
+│       │       │   ├── pool2d.cu
+│       │       │   ├── pool2d.cuh
+│       │       │   ├── quantize.cu
+│       │       │   ├── quantize.cuh
+│       │       │   ├── reduce_rows.cuh
+│       │       │   ├── roll.cu
+│       │       │   ├── roll.cuh
+│       │       │   ├── rope.cu
+│       │       │   ├── rope.cuh
+│       │       │   ├── scale.cu
+│       │       │   ├── scale.cuh
+│       │       │   ├── set.cu
+│       │       │   ├── set.cuh
+│       │       │   ├── set-rows.cu
+│       │       │   ├── set-rows.cuh
+│       │       │   ├── snake.cu
+│       │       │   ├── snake.cuh
+│       │       │   ├── softcap.cu
+│       │       │   ├── softcap.cuh
+│       │       │   ├── softmax.cu
+│       │       │   ├── softmax.cuh
+│       │       │   ├── solve_tri.cu
+│       │       │   ├── solve_tri.cuh
+│       │       │   ├── ssm-conv.cu
+│       │       │   ├── ssm-conv.cuh
+│       │       │   ├── ssm-scan.cu
+│       │       │   ├── ssm-scan.cuh
+│       │       │   ├── sum.cu
+│       │       │   ├── sum.cuh
+│       │       │   ├── sumrows.cu
+│       │       │   ├── sumrows.cuh
+│       │       │   ├── template-instances
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_16-ncols2_1.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_16-ncols2_2.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_16-ncols2_4.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_1-ncols2_16.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_1-ncols2_32.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_1-ncols2_8.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_2-ncols2_16.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_2-ncols2_32.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_2-ncols2_4.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_2-ncols2_8.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_32-ncols2_1.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_32-ncols2_2.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_4-ncols2_16.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_4-ncols2_2.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_4-ncols2_4.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_4-ncols2_8.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_64-ncols2_1.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_8-ncols2_1.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_8-ncols2_2.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_8-ncols2_4.cu
+│       │       │   │   ├── fattn-mma-f16-instance-ncols1_8-ncols2_8.cu
+│       │       │   │   ├── fattn-tile-instance-dkq112-dv112.cu
+│       │       │   │   ├── fattn-tile-instance-dkq128-dv128.cu
+│       │       │   │   ├── fattn-tile-instance-dkq192-dv128.cu
+│       │       │   │   ├── fattn-tile-instance-dkq256-dv256.cu
+│       │       │   │   ├── fattn-tile-instance-dkq320-dv256.cu
+│       │       │   │   ├── fattn-tile-instance-dkq40-dv40.cu
+│       │       │   │   ├── fattn-tile-instance-dkq512-dv512.cu
+│       │       │   │   ├── fattn-tile-instance-dkq576-dv512.cu
+│       │       │   │   ├── fattn-tile-instance-dkq64-dv64.cu
+│       │       │   │   ├── fattn-tile-instance-dkq72-dv72.cu
+│       │       │   │   ├── fattn-tile-instance-dkq80-dv80.cu
+│       │       │   │   ├── fattn-tile-instance-dkq96-dv96.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-f16.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-bf16-q8_0.cu
+│       │       │   │   ├── fattn-vec-instance-f16-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-f16-f16.cu
+│       │       │   │   ├── fattn-vec-instance-f16-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-f16-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-f16-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-f16-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-f16-q8_0.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-f16.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-q4_0-q8_0.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-f16.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-q4_1-q8_0.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-f16.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-q5_0-q8_0.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-f16.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-q5_1-q8_0.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-bf16.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-f16.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-q4_0.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-q4_1.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-q5_0.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-q5_1.cu
+│       │       │   │   ├── fattn-vec-instance-q8_0-q8_0.cu
+│       │       │   │   ├── generate_cu_files.py
+│       │       │   │   ├── mmf-instance-ncols_10.cu
+│       │       │   │   ├── mmf-instance-ncols_11.cu
+│       │       │   │   ├── mmf-instance-ncols_12.cu
+│       │       │   │   ├── mmf-instance-ncols_13.cu
+│       │       │   │   ├── mmf-instance-ncols_14.cu
+│       │       │   │   ├── mmf-instance-ncols_15.cu
+│       │       │   │   ├── mmf-instance-ncols_16.cu
+│       │       │   │   ├── mmf-instance-ncols_1.cu
+│       │       │   │   ├── mmf-instance-ncols_2.cu
+│       │       │   │   ├── mmf-instance-ncols_3.cu
+│       │       │   │   ├── mmf-instance-ncols_4.cu
+│       │       │   │   ├── mmf-instance-ncols_5.cu
+│       │       │   │   ├── mmf-instance-ncols_6.cu
+│       │       │   │   ├── mmf-instance-ncols_7.cu
+│       │       │   │   ├── mmf-instance-ncols_8.cu
+│       │       │   │   ├── mmf-instance-ncols_9.cu
+│       │       │   │   ├── mmq-instance-iq1_s.cu
+│       │       │   │   ├── mmq-instance-iq2_s.cu
+│       │       │   │   ├── mmq-instance-iq2_xs.cu
+│       │       │   │   ├── mmq-instance-iq2_xxs.cu
+│       │       │   │   ├── mmq-instance-iq3_s.cu
+│       │       │   │   ├── mmq-instance-iq3_xxs.cu
+│       │       │   │   ├── mmq-instance-iq4_nl.cu
+│       │       │   │   ├── mmq-instance-iq4_xs.cu
+│       │       │   │   ├── mmq-instance-mxfp4.cu
+│       │       │   │   ├── mmq-instance-nvfp4.cu
+│       │       │   │   ├── mmq-instance-q1_0.cu
+│       │       │   │   ├── mmq-instance-q2_0.cu
+│       │       │   │   ├── mmq-instance-q2_k.cu
+│       │       │   │   ├── mmq-instance-q3_k.cu
+│       │       │   │   ├── mmq-instance-q4_0.cu
+│       │       │   │   ├── mmq-instance-q4_1.cu
+│       │       │   │   ├── mmq-instance-q4_k.cu
+│       │       │   │   ├── mmq-instance-q5_0.cu
+│       │       │   │   ├── mmq-instance-q5_1.cu
+│       │       │   │   ├── mmq-instance-q5_k.cu
+│       │       │   │   ├── mmq-instance-q6_k.cu
+│       │       │   │   └── mmq-instance-q8_0.cu
+│       │       │   ├── top-k.cu
+│       │       │   ├── top-k.cuh
+│       │       │   ├── top-k-mask.cu
+│       │       │   ├── top-k-mask.cuh
+│       │       │   ├── topk-moe.cu
+│       │       │   ├── topk-moe.cuh
+│       │       │   ├── tri.cu
+│       │       │   ├── tri.cuh
+│       │       │   ├── tsembd.cu
+│       │       │   ├── tsembd.cuh
+│       │       │   ├── unary.cu
+│       │       │   ├── unary.cuh
+│       │       │   ├── upscale.cu
+│       │       │   ├── upscale.cuh
+│       │       │   ├── vecdotq.cuh
+│       │       │   ├── vendors
+│       │       │   │   ├── cuda.h
+│       │       │   │   ├── hip.h
+│       │       │   │   └── musa.h
+│       │       │   ├── wkv.cu
+│       │       │   └── wkv.cuh
+│       │       ├── ggml-et
+│       │       │   ├── cmake
+│       │       │   │   ├── embed_one_kernel.cmake
+│       │       │   │   ├── ggml-et-kernels-embed.cpp.in
+│       │       │   │   ├── ggml-et-kernels-embed.hpp.in
+│       │       │   │   ├── ggml-et-uberkernel-kernel-map.cpp.in
+│       │       │   │   └── ggml-et-uberkernel-kernel-map.h.in
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── et-kernels
+│       │       │   │   ├── CMakeLists.txt
+│       │       │   │   ├── scripts
+│       │       │   │   │   └── check_unimplemented_instructions.sh
+│       │       │   │   └── src
+│       │       │   │       ├── block_ops.h
+│       │       │   │       ├── clamp_f32.c
+│       │       │   │       ├── concat_f32.c
+│       │       │   │       ├── cont_f16.c
+│       │       │   │       ├── cont_f32.c
+│       │       │   │       ├── conv_2d_f32_me.c
+│       │       │   │       ├── cpy_f32_f16.c
+│       │       │   │       ├── crt.S
+│       │       │   │       ├── cumsum_f32.c
+│       │       │   │       ├── diag_f32.c
+│       │       │   │       ├── el_map_f32.c
+│       │       │   │       ├── fill_f32.c
+│       │       │   │       ├── flash_attn_ext_f16_me.c
+│       │       │   │       ├── flash_attn_ext_f32.c
+│       │       │   │       ├── gated_delta_net_f32.c
+│       │       │   │       ├── get_rows_f32.c
+│       │       │   │       ├── ggml_tensor.h
+│       │       │   │       ├── glu_f32.c
+│       │       │   │       ├── group_norm_f32.c
+│       │       │   │       ├── im2col.c
+│       │       │   │       ├── l2_norm_f32.c
+│       │       │   │       ├── linker.ld
+│       │       │   │       ├── math_fp.h
+│       │       │   │       ├── mean_f32.c
+│       │       │   │       ├── memops.c
+│       │       │   │       ├── mul_mat_f16.c
+│       │       │   │       ├── mul_mat_f16_matrix_engine.c
+│       │       │   │       ├── mul_mat_f32.c
+│       │       │   │       ├── mul_mat_f32_matrix_engine.c
+│       │       │   │       ├── mul_mat_id_f32.c
+│       │       │   │       ├── mul_mat_id_Q4_0.c
+│       │       │   │       ├── mul_mat_id_Q8_0.c
+│       │       │   │       ├── mul_mat_Q4_0.c
+│       │       │   │       ├── mul_mat_Q4_0_matrix_engine.c
+│       │       │   │       ├── mul_mat_Q8_0.c
+│       │       │   │       ├── norm_f32.c
+│       │       │   │       ├── pad_f32.c
+│       │       │   │       ├── platform.h
+│       │       │   │       ├── quants.h
+│       │       │   │       ├── repeat_f32.c
+│       │       │   │       ├── rms_norm_f32.c
+│       │       │   │       ├── rms_norm_mul_f32.c
+│       │       │   │       ├── rope_f32.c
+│       │       │   │       ├── RunBackend.sh
+│       │       │   │       ├── rwkv_wkv6_f32.c
+│       │       │   │       ├── rwkv_wkv7_f32.c
+│       │       │   │       ├── scale_f32.c
+│       │       │   │       ├── set_f32.c
+│       │       │   │       ├── set_rows_f32.c
+│       │       │   │       ├── softmax_f32.c
+│       │       │   │       ├── solve_tri_f32.c
+│       │       │   │       ├── sqr_f32.c
+│       │       │   │       ├── ssm_conv_f32.c
+│       │       │   │       ├── ssm_scan_f32.c
+│       │       │   │       ├── sum_rows_f32.c
+│       │       │   │       ├── tensor.h
+│       │       │   │       ├── tri_f32.c
+│       │       │   │       ├── uberkernel.c
+│       │       │   │       └── unary_f32.c
+│       │       │   ├── ggml-et-common.h
+│       │       │   ├── ggml-et.cpp
+│       │       │   ├── ggml-et-cpu-compare.cpp
+│       │       │   ├── ggml-et-cpu-compare.h
+│       │       │   ├── ggml-et-kernels.cpp
+│       │       │   ├── ggml-et-kernels.h
+│       │       │   ├── ggml-et-memops.cpp
+│       │       │   ├── ggml-et-memops.h
+│       │       │   ├── ggml-et-ops.cpp
+│       │       │   ├── ggml-et-ops.h
+│       │       │   └── ggml-et-uberkernel-common.h
+│       │       ├── ggml-feats.h
+│       │       ├── ggml-hexagon
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-hexagon.cpp
+│       │       │   ├── htp
+│       │       │   │   ├── allreduce-ops.c
+│       │       │   │   ├── allreduce-ops.h
+│       │       │   │   ├── argsort-ops.c
+│       │       │   │   ├── argsort-ops.h
+│       │       │   │   ├── binary-ops.c
+│       │       │   │   ├── binary-ops.h
+│       │       │   │   ├── CMakeLists.txt
+│       │       │   │   ├── cmake-toolchain.cmake
+│       │       │   │   ├── concat-ops.c
+│       │       │   │   ├── concat-ops.h
+│       │       │   │   ├── conv2d-ops.c
+│       │       │   │   ├── conv2d-ops.h
+│       │       │   │   ├── cpy-ops.c
+│       │       │   │   ├── cpy-ops.h
+│       │       │   │   ├── cumsum-ops.c
+│       │       │   │   ├── cumsum-ops.h
+│       │       │   │   ├── diag-ops.c
+│       │       │   │   ├── diag-ops.h
+│       │       │   │   ├── dma-copy.h
+│       │       │   │   ├── dma-queue.c
+│       │       │   │   ├── dma-queue.h
+│       │       │   │   ├── dsv4-hc-ops.c
+│       │       │   │   ├── dsv4-hc-ops.h
+│       │       │   │   ├── fill-ops.c
+│       │       │   │   ├── fill-ops.h
+│       │       │   │   ├── flash-attn-ops.c
+│       │       │   │   ├── flash-attn-ops.h
+│       │       │   │   ├── gated-delta-net-ops.c
+│       │       │   │   ├── gated-delta-net-ops.h
+│       │       │   │   ├── gather-rows.c
+│       │       │   │   ├── gather-rows.h
+│       │       │   │   ├── get-rows-ops.c
+│       │       │   │   ├── get-rows-ops.h
+│       │       │   │   ├── glu-ops.c
+│       │       │   │   ├── glu-ops.h
+│       │       │   │   ├── hex-bitmap.h
+│       │       │   │   ├── hex-common.h
+│       │       │   │   ├── hex-dump.h
+│       │       │   │   ├── hex-fastdiv.h
+│       │       │   │   ├── hex-profile.h
+│       │       │   │   ├── hex-utils.h
+│       │       │   │   ├── hmx-fa-kernels.h
+│       │       │   │   ├── hmx-mm-kernels-tiled.h
+│       │       │   │   ├── hmx-queue.c
+│       │       │   │   ├── hmx-queue.h
+│       │       │   │   ├── hmx-utils.h
+│       │       │   │   ├── htp-ctx.h
+│       │       │   │   ├── htp-dcache.c
+│       │       │   │   ├── htp-dcache.h
+│       │       │   │   ├── htp-fence.h
+│       │       │   │   ├── htp_iface.idl
+│       │       │   │   ├── htp-ops.h
+│       │       │   │   ├── htp-swiv.py
+│       │       │   │   ├── htp-tensor.h
+│       │       │   │   ├── htp-vtcm.h
+│       │       │   │   ├── hvx-arith.h
+│       │       │   │   ├── hvx-base.h
+│       │       │   │   ├── hvx-copy.h
+│       │       │   │   ├── hvx-div.h
+│       │       │   │   ├── hvx-dump.h
+│       │       │   │   ├── hvx-erf.h
+│       │       │   │   ├── hvx-exp.h
+│       │       │   │   ├── hvx-fa-kernels.h
+│       │       │   │   ├── hvx-flash-attn.h
+│       │       │   │   ├── hvx-floor.h
+│       │       │   │   ├── hvx-inverse.h
+│       │       │   │   ├── hvx-log.h
+│       │       │   │   ├── hvx-mm-kernels-float.h
+│       │       │   │   ├── hvx-mm-kernels-tiled.h
+│       │       │   │   ├── hvx-norm.h
+│       │       │   │   ├── hvx-pow.h
+│       │       │   │   ├── hvx-quant.h
+│       │       │   │   ├── hvx-reduce.h
+│       │       │   │   ├── hvx-repl.h
+│       │       │   │   ├── hvx-scale.h
+│       │       │   │   ├── hvx-sigmoid.h
+│       │       │   │   ├── hvx-sin-cos.h
+│       │       │   │   ├── hvx-sqrt.h
+│       │       │   │   ├── hvx-types.h
+│       │       │   │   ├── hvx-utils.h
+│       │       │   │   ├── im2col-ops.c
+│       │       │   │   ├── im2col-ops.h
+│       │       │   │   ├── lightning-indexer-ops.c
+│       │       │   │   ├── lightning-indexer-ops.h
+│       │       │   │   ├── main.c
+│       │       │   │   ├── matmul-ops.c
+│       │       │   │   ├── matmul-ops.h
+│       │       │   │   ├── pad-ops.c
+│       │       │   │   ├── pad-ops.h
+│       │       │   │   ├── pool-ops.c
+│       │       │   │   ├── pool-ops.h
+│       │       │   │   ├── repeat-ops.c
+│       │       │   │   ├── repeat-ops.h
+│       │       │   │   ├── roll-ops.c
+│       │       │   │   ├── roll-ops.h
+│       │       │   │   ├── rope-ops.c
+│       │       │   │   ├── rope-ops.h
+│       │       │   │   ├── set-rows-ops.c
+│       │       │   │   ├── set-rows-ops.h
+│       │       │   │   ├── softmax-ops.c
+│       │       │   │   ├── softmax-ops.h
+│       │       │   │   ├── solve-tri-ops.c
+│       │       │   │   ├── solve-tri-ops.h
+│       │       │   │   ├── ssm-conv.c
+│       │       │   │   ├── ssm-conv.h
+│       │       │   │   ├── sum-rows-ops.c
+│       │       │   │   ├── sum-rows-ops.h
+│       │       │   │   ├── top-k-mask-ops.c
+│       │       │   │   ├── top-k-mask-ops.h
+│       │       │   │   ├── unary-ops.c
+│       │       │   │   ├── unary-ops.h
+│       │       │   │   ├── upscale-ops.c
+│       │       │   │   ├── upscale-ops.h
+│       │       │   │   ├── work-queue.c
+│       │       │   │   └── work-queue.h
+│       │       │   ├── htp-common.h
+│       │       │   ├── htp-drv.cpp
+│       │       │   ├── htp-drv.h
+│       │       │   ├── htp-fusion.cpp
+│       │       │   ├── htp-fusion.h
+│       │       │   ├── htp-kparams.cpp
+│       │       │   ├── htp-kparams.h
+│       │       │   ├── htp-opnode.cpp
+│       │       │   ├── htp-opnode.h
+│       │       │   ├── htp-repack.cpp
+│       │       │   ├── htp-repack.h
+│       │       │   ├── libdl.h
+│       │       │   └── libggml-htp.inf
+│       │       ├── ggml-hip
+│       │       │   └── CMakeLists.txt
+│       │       ├── ggml-impl.h
+│       │       ├── ggml-metal
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-metal-common.cpp
+│       │       │   ├── ggml-metal-common.h
+│       │       │   ├── ggml-metal-context.h
+│       │       │   ├── ggml-metal-context.m
+│       │       │   ├── ggml-metal.cpp
+│       │       │   ├── ggml-metal-device.cpp
+│       │       │   ├── ggml-metal-device.h
+│       │       │   ├── ggml-metal-device.m
+│       │       │   ├── ggml-metal-fusion.cpp
+│       │       │   ├── ggml-metal-fusion.h
+│       │       │   ├── ggml-metal-impl.h
+│       │       │   ├── ggml-metal-ops.cpp
+│       │       │   ├── ggml-metal-ops.h
+│       │       │   ├── ggml-metal-tuning.cpp
+│       │       │   ├── ggml-metal-tuning.h
+│       │       │   └── kernels
+│       │       │       ├── argsort.metal
+│       │       │       ├── binbcast.metal
+│       │       │       ├── common.h
+│       │       │       ├── conv.metal
+│       │       │       ├── dequantize.h
+│       │       │       ├── fa_aux.metal
+│       │       │       ├── fa_common.metal
+│       │       │       ├── fa_f16.metal
+│       │       │       ├── fa_f32.metal
+│       │       │       ├── fa_q4_0.metal
+│       │       │       ├── fa_q4_1.metal
+│       │       │       ├── fa_q5_0.metal
+│       │       │       ├── fa_q5_1.metal
+│       │       │       ├── fa_q8_0.metal
+│       │       │       ├── fa_tensor.metal
+│       │       │       ├── fa_vec_common.metal
+│       │       │       ├── fa_vec_f16.metal
+│       │       │       ├── fa_vec_f32.metal
+│       │       │       ├── fa_vec_q4_0.metal
+│       │       │       ├── fa_vec_q4_1.metal
+│       │       │       ├── fa_vec_q5_0.metal
+│       │       │       ├── fa_vec_q5_1.metal
+│       │       │       ├── fa_vec_q8_0.metal
+│       │       │       ├── gated_delta_net.metal
+│       │       │       ├── misc.metal
+│       │       │       ├── mul_mm.metal
+│       │       │       ├── mul_mv.metal
+│       │       │       ├── mul_mv_mma.metal
+│       │       │       ├── norm.metal
+│       │       │       ├── pool.metal
+│       │       │       ├── quantize.h
+│       │       │       ├── quantize.metal
+│       │       │       ├── reduce.metal
+│       │       │       ├── rope.metal
+│       │       │       ├── softmax.metal
+│       │       │       ├── solve_tri.metal
+│       │       │       ├── ssm.metal
+│       │       │       ├── tri.metal
+│       │       │       ├── unary.metal
+│       │       │       ├── upscale.metal
+│       │       │       └── wkv.metal
+│       │       ├── ggml-musa
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── mudnn.cu
+│       │       │   └── mudnn.cuh
+│       │       ├── ggml-opencl
+│       │       │   ├── cl-program-cache.cpp
+│       │       │   ├── cl-program-cache.h
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── fa_tune.h
+│       │       │   ├── ggml-opencl.cpp
+│       │       │   ├── kernels
+│       │       │   │   ├── abs.cl
+│       │       │   │   ├── add.cl
+│       │       │   │   ├── add_id.cl
+│       │       │   │   ├── argmax.cl
+│       │       │   │   ├── argsort.cl
+│       │       │   │   ├── clamp.cl
+│       │       │   │   ├── concat.cl
+│       │       │   │   ├── conv2d.cl
+│       │       │   │   ├── conv2d_f16_f32.cl
+│       │       │   │   ├── conv2_dw.cl
+│       │       │   │   ├── cpy.cl
+│       │       │   │   ├── cumsum.cl
+│       │       │   │   ├── cvt.cl
+│       │       │   │   ├── diag.cl
+│       │       │   │   ├── diag_mask_inf.cl
+│       │       │   │   ├── div.cl
+│       │       │   │   ├── embed_kernel.py
+│       │       │   │   ├── exp.cl
+│       │       │   │   ├── expm1.cl
+│       │       │   │   ├── fill.cl
+│       │       │   │   ├── flash_attn_f16.cl
+│       │       │   │   ├── flash_attn_f32.cl
+│       │       │   │   ├── flash_attn_f32_f16.cl
+│       │       │   │   ├── flash_attn_f32_q4_0.cl
+│       │       │   │   ├── flash_attn_f32_q8_0.cl
+│       │       │   │   ├── flash_attn_pre_f16.cl
+│       │       │   │   ├── flash_attn_repack.cl
+│       │       │   │   ├── fwht.cl
+│       │       │   │   ├── gated_delta_net.cl
+│       │       │   │   ├── gelu.cl
+│       │       │   │   ├── gemm_coopk_q4_0_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_coopk_q4_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_coopk_q6_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_moe_mxfp4_f32.cl
+│       │       │   │   ├── gemm_moe_mxfp4_f32_ns.cl
+│       │       │   │   ├── gemm_moe_mxfp4_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_moe_q4_0_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q4_0_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_moe_q4_1_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q4_k_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q4_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_moe_q5_0_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q5_1_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q5_k_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q6_k_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q6_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_moe_q8_0_f32_ns.cl
+│       │       │   │   ├── gemm_moe_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq1_m_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq1_m_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq1_s_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq1_s_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq2_s_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq2_s_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq2_xs_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq2_xs_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq2_xxs_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq2_xxs_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq3_s_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq3_s_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq3_xxs_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq3_xxs_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq4_nl_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq4_nl_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_iq4_xs_f32.cl
+│       │       │   │   ├── gemm_noshuffle_iq4_xs_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q1_0_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q2_0_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q2_0_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q2_k_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q2_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q3_k_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q3_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q4_0_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q4_0_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q4_1_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q4_k_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q4_K_f32_tiled_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q4_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q5_0_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q5_0_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q5_1_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q5_k_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q5_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q6_k_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q6_k_f32_tiled.cl
+│       │       │   │   ├── gemm_noshuffle_q6_k_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_noshuffle_q8_0_f32.cl
+│       │       │   │   ├── gemm_noshuffle_q8_0_q8_1_dp4a.cl
+│       │       │   │   ├── gemm_xmem_f16_f32_os8.cl
+│       │       │   │   ├── gemv_moe_mxfp4_f32.cl
+│       │       │   │   ├── gemv_moe_mxfp4_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q4_0_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q4_1_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q4_k_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q5_0_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q5_1_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q5_k_f32_ns.cl
+│       │       │   │   ├── gemv_moe_q6_k_f32_ns.cl
+│       │       │   │   ├── gemv_noshuffle_iq1_m_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq1_s_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq2_s_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq2_xs_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq2_xxs_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq3_s_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq3_xxs_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq4_nl_f32.cl
+│       │       │   │   ├── gemv_noshuffle_iq4_xs_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q1_0_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q2_0_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q2_k_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q3_k_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q4_0_f32_32b_trans.cl
+│       │       │   │   ├── gemv_noshuffle_q4_0_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q4_0_f32_spec.cl
+│       │       │   │   ├── gemv_noshuffle_q4_1_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q4_k_f32_32b_trans.cl
+│       │       │   │   ├── gemv_noshuffle_q4_k_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q4_k_f32_o4.cl
+│       │       │   │   ├── gemv_noshuffle_q4_k_f32_tiled.cl
+│       │       │   │   ├── gemv_noshuffle_q5_0_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q5_1_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q5_k_f32_32b_trans.cl
+│       │       │   │   ├── gemv_noshuffle_q5_k_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q6_k_f32_32b_trans.cl
+│       │       │   │   ├── gemv_noshuffle_q6_k_f32.cl
+│       │       │   │   ├── gemv_noshuffle_q6_k_f32_o4.cl
+│       │       │   │   ├── gemv_noshuffle_q6_k_f32_tiled.cl
+│       │       │   │   ├── gemv_noshuffle_q8_0_f32.cl
+│       │       │   │   ├── get_rows.cl
+│       │       │   │   ├── glu.cl
+│       │       │   │   ├── group_norm.cl
+│       │       │   │   ├── im2col_3d_f16.cl
+│       │       │   │   ├── im2col_3d_f32.cl
+│       │       │   │   ├── im2col_f16.cl
+│       │       │   │   ├── im2col_f32.cl
+│       │       │   │   ├── iq1_s_grid.cl
+│       │       │   │   ├── iq2_s_grid.cl
+│       │       │   │   ├── iq2_xs_grid.cl
+│       │       │   │   ├── iq2_xxs_grid.cl
+│       │       │   │   ├── iq3_s_grid.cl
+│       │       │   │   ├── iq3_xxs_grid.cl
+│       │       │   │   ├── iq4_xs_grid.cl
+│       │       │   │   ├── l2_norm.cl
+│       │       │   │   ├── lightning_indexer.cl
+│       │       │   │   ├── mean.cl
+│       │       │   │   ├── moe_add_id_glu.cl
+│       │       │   │   ├── moe_combine.cl
+│       │       │   │   ├── moe_reorder_b.cl
+│       │       │   │   ├── moe_reorder_quant_a_q8_1.cl
+│       │       │   │   ├── moe_sort_by_expert.cl
+│       │       │   │   ├── mul.cl
+│       │       │   │   ├── mul_mat_f16_f32.cl
+│       │       │   │   ├── mul_mat_id_utils.cl
+│       │       │   │   ├── mul_mm_f16_f32_kq_kqv.cl
+│       │       │   │   ├── mul_mm_f16_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_f32_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq1_m_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq1_s_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq2_s_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq2_xs_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq2_xxs_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq3_s_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq3_xxs_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq4_nl_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_iq4_xs_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q1_0_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q2_0_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q2_k_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q3_k_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q4_0_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q4_1_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q4_k_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q5_0_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q5_1_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q5_k_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q6_k_f32_l4_lm.cl
+│       │       │   │   ├── mul_mm_q8_0_f32_l4_lm.cl
+│       │       │   │   ├── mul_mv_f16_f16.cl
+│       │       │   │   ├── mul_mv_f16_f32_1row.cl
+│       │       │   │   ├── mul_mv_f16_f32.cl
+│       │       │   │   ├── mul_mv_f16_f32_l4.cl
+│       │       │   │   ├── mul_mv_f16_f32_mrow.cl
+│       │       │   │   ├── mul_mv_f32_f32.cl
+│       │       │   │   ├── mul_mv_id_mxfp4_f32.cl
+│       │       │   │   ├── mul_mv_id_mxfp4_f32_flat.cl
+│       │       │   │   ├── mul_mv_id_q4_0_f32_8x_flat.cl
+│       │       │   │   ├── mul_mv_id_q8_0_f32.cl
+│       │       │   │   ├── mul_mv_id_q8_0_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq1_m_f32.cl
+│       │       │   │   ├── mul_mv_iq1_m_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq1_s_f32.cl
+│       │       │   │   ├── mul_mv_iq1_s_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq2_s_f32.cl
+│       │       │   │   ├── mul_mv_iq2_s_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq2_xs_f32.cl
+│       │       │   │   ├── mul_mv_iq2_xs_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq2_xxs_f32.cl
+│       │       │   │   ├── mul_mv_iq2_xxs_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq3_s_f32.cl
+│       │       │   │   ├── mul_mv_iq3_s_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq3_xxs_f32.cl
+│       │       │   │   ├── mul_mv_iq3_xxs_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq4_nl_f32.cl
+│       │       │   │   ├── mul_mv_iq4_nl_f32_flat.cl
+│       │       │   │   ├── mul_mv_iq4_xs_f32.cl
+│       │       │   │   ├── mul_mv_iq4_xs_f32_flat.cl
+│       │       │   │   ├── mul_mv_mxfp4_f32.cl
+│       │       │   │   ├── mul_mv_mxfp4_f32_flat.cl
+│       │       │   │   ├── mul_mv_q1_0_f32.cl
+│       │       │   │   ├── mul_mv_q1_0_f32_flat.cl
+│       │       │   │   ├── mul_mv_q2_0_f32.cl
+│       │       │   │   ├── mul_mv_q2_0_f32_flat.cl
+│       │       │   │   ├── mul_mv_q2_k_f32.cl
+│       │       │   │   ├── mul_mv_q2_k_f32_flat.cl
+│       │       │   │   ├── mul_mv_q3_k_f32.cl
+│       │       │   │   ├── mul_mv_q3_k_f32_flat.cl
+│       │       │   │   ├── mul_mv_q4_0_f32_1d_16x_flat.cl
+│       │       │   │   ├── mul_mv_q4_0_f32_1d_8x_flat.cl
+│       │       │   │   ├── mul_mv_q4_0_f32_8x_flat.cl
+│       │       │   │   ├── mul_mv_q4_0_f32.cl
+│       │       │   │   ├── mul_mv_q4_0_f32_v.cl
+│       │       │   │   ├── mul_mv_q4_1_f32.cl
+│       │       │   │   ├── mul_mv_q4_1_f32_flat.cl
+│       │       │   │   ├── mul_mv_q4_k_f32.cl
+│       │       │   │   ├── mul_mv_q4_k_f32_flat.cl
+│       │       │   │   ├── mul_mv_q5_0_f32.cl
+│       │       │   │   ├── mul_mv_q5_0_f32_flat.cl
+│       │       │   │   ├── mul_mv_q5_1_f32.cl
+│       │       │   │   ├── mul_mv_q5_1_f32_flat.cl
+│       │       │   │   ├── mul_mv_q5_k_f32.cl
+│       │       │   │   ├── mul_mv_q5_k_f32_flat.cl
+│       │       │   │   ├── mul_mv_q6_k_f32.cl
+│       │       │   │   ├── mul_mv_q6_k_f32_flat.cl
+│       │       │   │   ├── mul_mv_q8_0_f32.cl
+│       │       │   │   ├── mul_mv_q8_0_f32_flat.cl
+│       │       │   │   ├── neg.cl
+│       │       │   │   ├── norm.cl
+│       │       │   │   ├── pad.cl
+│       │       │   │   ├── quant_a_q8_1.cl
+│       │       │   │   ├── relu.cl
+│       │       │   │   ├── repeat.cl
+│       │       │   │   ├── rms_norm.cl
+│       │       │   │   ├── rope.cl
+│       │       │   │   ├── scale.cl
+│       │       │   │   ├── sdpa_xmem_f32_f16_os8.cl
+│       │       │   │   ├── set_rows.cl
+│       │       │   │   ├── sigmoid.cl
+│       │       │   │   ├── silu.cl
+│       │       │   │   ├── softmax_4_f16.cl
+│       │       │   │   ├── softmax_4_f32.cl
+│       │       │   │   ├── softmax_f16.cl
+│       │       │   │   ├── softmax_f32.cl
+│       │       │   │   ├── softplus.cl
+│       │       │   │   ├── solve_tri.cl
+│       │       │   │   ├── sqr.cl
+│       │       │   │   ├── sqrt.cl
+│       │       │   │   ├── ssm_conv.cl
+│       │       │   │   ├── ssm_scan.cl
+│       │       │   │   ├── sub.cl
+│       │       │   │   ├── sum_rows.cl
+│       │       │   │   ├── tanh.cl
+│       │       │   │   ├── top_k.cl
+│       │       │   │   ├── top_k_mask.cl
+│       │       │   │   ├── transpose_activation_q8.cl
+│       │       │   │   ├── transpose.cl
+│       │       │   │   ├── tri.cl
+│       │       │   │   ├── tsembd.cl
+│       │       │   │   ├── unary_ext.cl
+│       │       │   │   └── upscale.cl
+│       │       │   └── libdl.h
+│       │       ├── ggml-openvino
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-decoder.cpp
+│       │       │   ├── ggml-decoder.h
+│       │       │   ├── ggml-openvino.cpp
+│       │       │   ├── ggml-openvino-extra.cpp
+│       │       │   ├── ggml-openvino-extra.h
+│       │       │   ├── ggml-quants.cpp
+│       │       │   ├── ggml-quants.h
+│       │       │   ├── model-cache.cpp
+│       │       │   ├── model-cache.h
+│       │       │   ├── openvino
+│       │       │   │   ├── decoder.h
+│       │       │   │   ├── frontend.cpp
+│       │       │   │   ├── frontend.h
+│       │       │   │   ├── input_model.cpp
+│       │       │   │   ├── input_model.h
+│       │       │   │   ├── node_context.h
+│       │       │   │   ├── op
+│       │       │   │   │   ├── add.cpp
+│       │       │   │   │   ├── add_id.cpp
+│       │       │   │   │   ├── argsort.cpp
+│       │       │   │   │   ├── clamp.cpp
+│       │       │   │   │   ├── concat.cpp
+│       │       │   │   │   ├── cont.cpp
+│       │       │   │   │   ├── conv.cpp
+│       │       │   │   │   ├── cpy.cpp
+│       │       │   │   │   ├── cumsum.cpp
+│       │       │   │   │   ├── diag.cpp
+│       │       │   │   │   ├── div.cpp
+│       │       │   │   │   ├── fill.cpp
+│       │       │   │   │   ├── flash_attn_ext.cpp
+│       │       │   │   │   ├── gated_delta_net.cpp
+│       │       │   │   │   ├── gated_delta_net.hpp
+│       │       │   │   │   ├── gather_matmul.hpp
+│       │       │   │   │   ├── get_rows.cpp
+│       │       │   │   │   ├── glu_geglu.cpp
+│       │       │   │   │   ├── glu_geglu_quick.cpp
+│       │       │   │   │   ├── glu_swiglu.cpp
+│       │       │   │   │   ├── im2col.cpp
+│       │       │   │   │   ├── l2_norm.cpp
+│       │       │   │   │   ├── mean.cpp
+│       │       │   │   │   ├── moe_compressed.hpp
+│       │       │   │   │   ├── mulmat.cpp
+│       │       │   │   │   ├── mul_mat_id.cpp
+│       │       │   │   │   ├── norm.cpp
+│       │       │   │   │   ├── pad.cpp
+│       │       │   │   │   ├── permute.cpp
+│       │       │   │   │   ├── pool_2d.cpp
+│       │       │   │   │   ├── repeat.cpp
+│       │       │   │   │   ├── reshape.cpp
+│       │       │   │   │   ├── rms_norm.cpp
+│       │       │   │   │   ├── roll.cpp
+│       │       │   │   │   ├── rope.cpp
+│       │       │   │   │   ├── scale.cpp
+│       │       │   │   │   ├── set.cpp
+│       │       │   │   │   ├── set_rows.cpp
+│       │       │   │   │   ├── softmax.cpp
+│       │       │   │   │   ├── solve_tri.cpp
+│       │       │   │   │   ├── sqr.cpp
+│       │       │   │   │   ├── ssm_conv.cpp
+│       │       │   │   │   ├── sum.cpp
+│       │       │   │   │   ├── sum_rows.cpp
+│       │       │   │   │   ├── transpose.cpp
+│       │       │   │   │   ├── tri.cpp
+│       │       │   │   │   ├── unary.cpp
+│       │       │   │   │   ├── upscale.cpp
+│       │       │   │   │   └── view.cpp
+│       │       │   │   ├── op_table.cpp
+│       │       │   │   ├── op_table.h
+│       │       │   │   ├── pass
+│       │       │   │   │   ├── align_eltwise_ranks.cpp
+│       │       │   │   │   ├── align_eltwise_ranks.h
+│       │       │   │   │   ├── fuse_argsort_topk.cpp
+│       │       │   │   │   ├── fuse_argsort_topk.h
+│       │       │   │   │   ├── fuse_moe_compressed.cpp
+│       │       │   │   │   ├── fuse_moe_compressed.h
+│       │       │   │   │   ├── fuse_moe_router.cpp
+│       │       │   │   │   ├── fuse_moe_router.h
+│       │       │   │   │   ├── fuse_to_conv.cpp
+│       │       │   │   │   ├── fuse_to_conv.h
+│       │       │   │   │   ├── fuse_to_sdpa.cpp
+│       │       │   │   │   ├── fuse_to_sdpa.h
+│       │       │   │   │   ├── kv_state_seq_axis.cpp
+│       │       │   │   │   ├── kv_state_seq_axis.h
+│       │       │   │   │   ├── mark_decompression_convert_constant_folding.h
+│       │       │   │   │   ├── mark_dequantization_subgraph.h
+│       │       │   │   │   ├── squeeze_matmul.cpp
+│       │       │   │   │   └── squeeze_matmul.h
+│       │       │   │   ├── rt_info
+│       │       │   │   │   └── weightless_caching_attributes.hpp
+│       │       │   │   ├── translate_session.cpp
+│       │       │   │   ├── translate_session.h
+│       │       │   │   ├── utils.cpp
+│       │       │   │   └── utils.h
+│       │       │   ├── README.md
+│       │       │   ├── utils.cpp
+│       │       │   └── utils.h
+│       │       ├── ggml-opt.cpp
+│       │       ├── ggml-quants.c
+│       │       ├── ggml-quants.h
+│       │       ├── ggml-rpc
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-rpc.cpp
+│       │       │   ├── log.cpp
+│       │       │   ├── log.h
+│       │       │   ├── transport-apple.cpp
+│       │       │   ├── transport-apple.h
+│       │       │   ├── transport.cpp
+│       │       │   └── transport.h
+│       │       ├── ggml-sycl
+│       │       │   ├── add-id.cpp
+│       │       │   ├── add-id.hpp
+│       │       │   ├── backend.hpp
+│       │       │   ├── base.hpp
+│       │       │   ├── binbcast.cpp
+│       │       │   ├── binbcast.hpp
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── col2im-1d.cpp
+│       │       │   ├── col2im-1d.hpp
+│       │       │   ├── common.cpp
+│       │       │   ├── common.hpp
+│       │       │   ├── concat.cpp
+│       │       │   ├── concat.hpp
+│       │       │   ├── conv2d.cpp
+│       │       │   ├── conv2d-dw.cpp
+│       │       │   ├── conv2d-dw.hpp
+│       │       │   ├── conv2d.hpp
+│       │       │   ├── conv2d-transpose.cpp
+│       │       │   ├── conv2d-transpose.hpp
+│       │       │   ├── conv3d.cpp
+│       │       │   ├── conv3d.hpp
+│       │       │   ├── conv.cpp
+│       │       │   ├── convert.cpp
+│       │       │   ├── convert.hpp
+│       │       │   ├── conv.hpp
+│       │       │   ├── count-equal.cpp
+│       │       │   ├── count-equal.hpp
+│       │       │   ├── cpy.cpp
+│       │       │   ├── cpy.hpp
+│       │       │   ├── cross_entropy_loss.cpp
+│       │       │   ├── cross_entropy_loss.hpp
+│       │       │   ├── cumsum.cpp
+│       │       │   ├── cumsum.hpp
+│       │       │   ├── dequantize.hpp
+│       │       │   ├── diag.cpp
+│       │       │   ├── diag.hpp
+│       │       │   ├── dmmv.cpp
+│       │       │   ├── dmmv.hpp
+│       │       │   ├── dpct
+│       │       │   │   └── helper.hpp
+│       │       │   ├── dsv4-hc.cpp
+│       │       │   ├── dsv4-hc.hpp
+│       │       │   ├── element_wise.cpp
+│       │       │   ├── element_wise.hpp
+│       │       │   ├── esimd.hpp
+│       │       │   ├── fattn-common.hpp
+│       │       │   ├── fattn.cpp
+│       │       │   ├── fattn-dpas.cpp
+│       │       │   ├── fattn-dpas.hpp
+│       │       │   ├── fattn.hpp
+│       │       │   ├── fattn-mkl.cpp
+│       │       │   ├── fattn-onednn.cpp
+│       │       │   ├── fattn-onednn.hpp
+│       │       │   ├── fattn-sparse.cpp
+│       │       │   ├── fattn-sparse.hpp
+│       │       │   ├── fattn-tile.cpp
+│       │       │   ├── fattn-tile.hpp
+│       │       │   ├── fattn-vec.hpp
+│       │       │   ├── fill.cpp
+│       │       │   ├── fill.hpp
+│       │       │   ├── fused-gemm.cpp
+│       │       │   ├── fused-gemm.hpp
+│       │       │   ├── fusion.cpp
+│       │       │   ├── fusion.hpp
+│       │       │   ├── fwht.cpp
+│       │       │   ├── fwht.hpp
+│       │       │   ├── gated_delta_net.cpp
+│       │       │   ├── gated_delta_net.hpp
+│       │       │   ├── gemm.hpp
+│       │       │   ├── getrows.cpp
+│       │       │   ├── getrows.hpp
+│       │       │   ├── ggml-sycl.cpp
+│       │       │   ├── gla.cpp
+│       │       │   ├── gla.hpp
+│       │       │   ├── im2col.cpp
+│       │       │   ├── im2col.hpp
+│       │       │   ├── lightning-indexer.cpp
+│       │       │   ├── lightning-indexer.hpp
+│       │       │   ├── mem.cpp
+│       │       │   ├── mem.hpp
+│       │       │   ├── memtrace.cpp
+│       │       │   ├── memtrace.hpp
+│       │       │   ├── mmq.cpp
+│       │       │   ├── mmq.hpp
+│       │       │   ├── mmvq.cpp
+│       │       │   ├── mmvq.hpp
+│       │       │   ├── norm.cpp
+│       │       │   ├── norm.hpp
+│       │       │   ├── opt-step.cpp
+│       │       │   ├── opt-step.hpp
+│       │       │   ├── outprod.cpp
+│       │       │   ├── outprod.hpp
+│       │       │   ├── pad.cpp
+│       │       │   ├── pad.hpp
+│       │       │   ├── pad_reflect_1d.cpp
+│       │       │   ├── pad_reflect_1d.hpp
+│       │       │   ├── pool.cpp
+│       │       │   ├── pool.hpp
+│       │       │   ├── presets.hpp
+│       │       │   ├── quantize.hpp
+│       │       │   ├── quants.hpp
+│       │       │   ├── repeat_back.cpp
+│       │       │   ├── repeat_back.hpp
+│       │       │   ├── roll.cpp
+│       │       │   ├── roll.hpp
+│       │       │   ├── rope.cpp
+│       │       │   ├── rope.hpp
+│       │       │   ├── set.cpp
+│       │       │   ├── set.hpp
+│       │       │   ├── set_rows.cpp
+│       │       │   ├── set_rows.hpp
+│       │       │   ├── softmax.cpp
+│       │       │   ├── softmax.hpp
+│       │       │   ├── solve_tri.cpp
+│       │       │   ├── solve_tri.hpp
+│       │       │   ├── ssm_conv.cpp
+│       │       │   ├── ssm_conv.hpp
+│       │       │   ├── ssm_scan.cpp
+│       │       │   ├── ssm_scan.hpp
+│       │       │   ├── sycl_hw.cpp
+│       │       │   ├── sycl_hw.hpp
+│       │       │   ├── template-instances
+│       │       │   │   ├── fattn-tile-instance-dkq112-dv112.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq128-dv128.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq256-dv256.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq40-dv40.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq512-dv512.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq576-dv512.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq64-dv64.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq72-dv72.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq80-dv80.cpp
+│       │       │   │   ├── fattn-tile-instance-dkq96-dv96.cpp
+│       │       │   │   ├── fattn-vec-instance-f16-f16.cpp
+│       │       │   │   ├── fattn-vec-instance-f16-q4_0.cpp
+│       │       │   │   ├── fattn-vec-instance-f16-q4_1.cpp
+│       │       │   │   ├── fattn-vec-instance-f16-q5_0.cpp
+│       │       │   │   ├── fattn-vec-instance-f16-q5_1.cpp
+│       │       │   │   ├── fattn-vec-instance-f16-q8_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_0-f16.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_0-q4_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_0-q4_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_0-q5_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_0-q5_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_0-q8_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_1-f16.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_1-q4_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_1-q4_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_1-q5_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_1-q5_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q4_1-q8_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_0-f16.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_0-q4_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_0-q4_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_0-q5_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_0-q5_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_0-q8_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_1-f16.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_1-q4_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_1-q4_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_1-q5_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_1-q5_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q5_1-q8_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q8_0-f16.cpp
+│       │       │   │   ├── fattn-vec-instance-q8_0-q4_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q8_0-q4_1.cpp
+│       │       │   │   ├── fattn-vec-instance-q8_0-q5_0.cpp
+│       │       │   │   ├── fattn-vec-instance-q8_0-q5_1.cpp
+│       │       │   │   └── fattn-vec-instance-q8_0-q8_0.cpp
+│       │       │   ├── topk-moe.cpp
+│       │       │   ├── topk-moe.hpp
+│       │       │   ├── topk-radix.cpp
+│       │       │   ├── topk-radix.hpp
+│       │       │   ├── tsembd.cpp
+│       │       │   ├── tsembd.hpp
+│       │       │   ├── type.hpp
+│       │       │   ├── upscale.cpp
+│       │       │   ├── upscale.hpp
+│       │       │   ├── vecdotq.hpp
+│       │       │   ├── wkv.cpp
+│       │       │   └── wkv.hpp
+│       │       ├── ggml-threading.cpp
+│       │       ├── ggml-threading.h
+│       │       ├── ggml-version.h.in
+│       │       ├── ggml-virtgpu
+│       │       │   ├── apir_cs_ggml-rpc-front.cpp
+│       │       │   ├── backend
+│       │       │   │   ├── apir_cs_ggml-rpc-back.cpp
+│       │       │   │   ├── backend-convert.h
+│       │       │   │   ├── backend.cpp
+│       │       │   │   ├── backend-dispatched-backend.cpp
+│       │       │   │   ├── backend-dispatched-buffer.cpp
+│       │       │   │   ├── backend-dispatched-buffer-type.cpp
+│       │       │   │   ├── backend-dispatched.cpp
+│       │       │   │   ├── backend-dispatched-device.cpp
+│       │       │   │   ├── backend-dispatched.gen.h
+│       │       │   │   ├── backend-dispatched.h
+│       │       │   │   ├── backend-virgl-apir.h
+│       │       │   │   ├── CMakeLists.txt
+│       │       │   │   └── shared
+│       │       │   │       ├── apir_backend.gen.h
+│       │       │   │       ├── apir_backend.h
+│       │       │   │       ├── apir_cs_ggml.h
+│       │       │   │       ├── apir_cs.h
+│       │       │   │       ├── apir_cs_rpc.h
+│       │       │   │       └── api_remoting.h
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-backend-buffer.cpp
+│       │       │   ├── ggml-backend-buffer-type.cpp
+│       │       │   ├── ggml-backend.cpp
+│       │       │   ├── ggml-backend-device.cpp
+│       │       │   ├── ggml-backend-reg.cpp
+│       │       │   ├── ggmlremoting_functions.yaml
+│       │       │   ├── ggml-remoting.h
+│       │       │   ├── include
+│       │       │   │   └── apir_hw.h
+│       │       │   ├── regenerate_remoting.py
+│       │       │   ├── virtgpu-apir.h
+│       │       │   ├── virtgpu.cpp
+│       │       │   ├── virtgpu-forward-backend.cpp
+│       │       │   ├── virtgpu-forward-buffer.cpp
+│       │       │   ├── virtgpu-forward-buffer-type.cpp
+│       │       │   ├── virtgpu-forward-device.cpp
+│       │       │   ├── virtgpu-forward.gen.h
+│       │       │   ├── virtgpu-forward-impl.h
+│       │       │   ├── virtgpu.h
+│       │       │   ├── virtgpu-shm.cpp
+│       │       │   ├── virtgpu-shm.h
+│       │       │   ├── virtgpu-utils.cpp
+│       │       │   └── virtgpu-utils.h
+│       │       ├── ggml-vulkan
+│       │       │   ├── cmake
+│       │       │   │   └── host-toolchain.cmake.in
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-vulkan-buffers.cpp
+│       │       │   ├── ggml-vulkan-comm.cpp
+│       │       │   ├── ggml-vulkan-common.h
+│       │       │   ├── ggml-vulkan.cpp
+│       │       │   ├── ggml-vulkan-debug.cpp
+│       │       │   ├── ggml-vulkan-push-constants.h
+│       │       │   ├── ggml-vulkan-types.h
+│       │       │   └── vulkan-shaders
+│       │       │       ├── acc.comp
+│       │       │       ├── add1.comp
+│       │       │       ├── add.comp
+│       │       │       ├── add_id.comp
+│       │       │       ├── arange.comp
+│       │       │       ├── argmax.comp
+│       │       │       ├── argsort.comp
+│       │       │       ├── argsort_large.comp
+│       │       │       ├── CMakeLists.txt
+│       │       │       ├── col2im_1d.comp
+│       │       │       ├── concat.comp
+│       │       │       ├── contig_copy.comp
+│       │       │       ├── conv2d_dw.comp
+│       │       │       ├── conv2d_mm.comp
+│       │       │       ├── conv3d_mm.comp
+│       │       │       ├── conv_transpose_1d.comp
+│       │       │       ├── copy.comp
+│       │       │       ├── copy_from_quant.comp
+│       │       │       ├── copy_to_quant.comp
+│       │       │       ├── copy_transpose_02.comp
+│       │       │       ├── copy_transpose.comp
+│       │       │       ├── count_equal.comp
+│       │       │       ├── count_experts.comp
+│       │       │       ├── cross_entropy_loss_back.comp
+│       │       │       ├── cross_entropy_loss.comp
+│       │       │       ├── cumsum.comp
+│       │       │       ├── cumsum_multipass1.comp
+│       │       │       ├── cumsum_multipass2.comp
+│       │       │       ├── dequant_f32.comp
+│       │       │       ├── dequant_funcs_cm2.glsl
+│       │       │       ├── dequant_funcs.glsl
+│       │       │       ├── dequant_head.glsl
+│       │       │       ├── dequant_iq1_m.comp
+│       │       │       ├── dequant_iq1_s.comp
+│       │       │       ├── dequant_iq2_s.comp
+│       │       │       ├── dequant_iq2_xs.comp
+│       │       │       ├── dequant_iq2_xxs.comp
+│       │       │       ├── dequant_iq3_s.comp
+│       │       │       ├── dequant_iq3_xxs.comp
+│       │       │       ├── dequant_iq4_nl.comp
+│       │       │       ├── dequant_iq4_xs.comp
+│       │       │       ├── dequant_mxfp4.comp
+│       │       │       ├── dequant_nvfp4.comp
+│       │       │       ├── dequant_q1_0.comp
+│       │       │       ├── dequant_q2_0.comp
+│       │       │       ├── dequant_q2_k.comp
+│       │       │       ├── dequant_q3_k.comp
+│       │       │       ├── dequant_q4_0.comp
+│       │       │       ├── dequant_q4_1.comp
+│       │       │       ├── dequant_q4_k.comp
+│       │       │       ├── dequant_q5_0.comp
+│       │       │       ├── dequant_q5_1.comp
+│       │       │       ├── dequant_q5_k.comp
+│       │       │       ├── dequant_q6_k.comp
+│       │       │       ├── dequant_q8_0.comp
+│       │       │       ├── dequant_tq1_0.comp
+│       │       │       ├── dequant_tq2_0.comp
+│       │       │       ├── diag.comp
+│       │       │       ├── diag_mask_inf.comp
+│       │       │       ├── div.comp
+│       │       │       ├── dot_product_funcs.glsl
+│       │       │       ├── dsv4_hc_comb.comp
+│       │       │       ├── dsv4_hc_post.comp
+│       │       │       ├── dsv4_hc_pre.comp
+│       │       │       ├── fa_types.glsl
+│       │       │       ├── feature-tests
+│       │       │       │   ├── bfloat16.comp
+│       │       │       │   ├── coopmat2.comp
+│       │       │       │   ├── coopmat2_decode_vector.comp
+│       │       │       │   ├── coopmat.comp
+│       │       │       │   ├── float_e2m1.comp
+│       │       │       │   ├── float_e4m3.comp
+│       │       │       │   └── integer_dot.comp
+│       │       │       ├── fill.comp
+│       │       │       ├── flash_attn_base.glsl
+│       │       │       ├── flash_attn_cm1.comp
+│       │       │       ├── flash_attn_cm2.comp
+│       │       │       ├── flash_attn.comp
+│       │       │       ├── flash_attn_decode_phase_1.comp
+│       │       │       ├── flash_attn_decode_phase_2.comp
+│       │       │       ├── flash_attn_dequant.glsl
+│       │       │       ├── flash_attn_mask_opt.comp
+│       │       │       ├── flash_attn_mmq_funcs.glsl
+│       │       │       ├── flash_attn_sparse_compact.comp
+│       │       │       ├── flash_attn_split_k_reduce.comp
+│       │       │       ├── fwht.comp
+│       │       │       ├── gated_delta_net.comp
+│       │       │       ├── geglu.comp
+│       │       │       ├── geglu_erf.comp
+│       │       │       ├── geglu_quick.comp
+│       │       │       ├── generic_binary_head.glsl
+│       │       │       ├── generic_head.glsl
+│       │       │       ├── generic_unary_head.glsl
+│       │       │       ├── get_rows_back.comp
+│       │       │       ├── get_rows.comp
+│       │       │       ├── get_rows_quant.comp
+│       │       │       ├── ggml_type_ids.glsl
+│       │       │       ├── gla.comp
+│       │       │       ├── glu_head.glsl
+│       │       │       ├── glu_main.glsl
+│       │       │       ├── group_norm.comp
+│       │       │       ├── im2col_3d.comp
+│       │       │       ├── im2col.comp
+│       │       │       ├── iq_shmem_init.glsl
+│       │       │       ├── l2_norm.comp
+│       │       │       ├── lightning_indexer.comp
+│       │       │       ├── log.comp
+│       │       │       ├── mul.comp
+│       │       │       ├── mul_mat_split_k_reduce.comp
+│       │       │       ├── mul_mat_vec_base.glsl
+│       │       │       ├── mul_mat_vec.comp
+│       │       │       ├── mul_mat_vec_iface.glsl
+│       │       │       ├── mul_mat_vec_iq1_m.comp
+│       │       │       ├── mul_mat_vec_iq1_s.comp
+│       │       │       ├── mul_mat_vec_iq2_s.comp
+│       │       │       ├── mul_mat_vec_iq2_xs.comp
+│       │       │       ├── mul_mat_vec_iq2_xxs.comp
+│       │       │       ├── mul_mat_vec_iq3_s.comp
+│       │       │       ├── mul_mat_vec_iq3_xxs.comp
+│       │       │       ├── mul_mat_vec_iq4_xs.comp
+│       │       │       ├── mul_mat_vec_nc.comp
+│       │       │       ├── mul_mat_vec_p021.comp
+│       │       │       ├── mul_mat_vec_q2_k.comp
+│       │       │       ├── mul_mat_vec_q3_k.comp
+│       │       │       ├── mul_mat_vec_q4_k.comp
+│       │       │       ├── mul_mat_vec_q5_k.comp
+│       │       │       ├── mul_mat_vec_q6_k.comp
+│       │       │       ├── mul_mat_vecq.comp
+│       │       │       ├── mul_mat_vecq_funcs.glsl
+│       │       │       ├── mul_mat_vec_tq1_0.comp
+│       │       │       ├── mul_mat_vec_tq2_0.comp
+│       │       │       ├── mul_mm_cm2.comp
+│       │       │       ├── mul_mm.comp
+│       │       │       ├── mul_mm_funcs.glsl
+│       │       │       ├── mul_mm_id_funcs.glsl
+│       │       │       ├── mul_mmq_cm1.comp
+│       │       │       ├── mul_mmq_cm1_funcs.glsl
+│       │       │       ├── mul_mmq.comp
+│       │       │       ├── mul_mmq_funcs.glsl
+│       │       │       ├── mul_mmq_shmem_types.glsl
+│       │       │       ├── multi_add.comp
+│       │       │       ├── norm.comp
+│       │       │       ├── opt_step_adamw.comp
+│       │       │       ├── opt_step_sgd.comp
+│       │       │       ├── out_prod.comp
+│       │       │       ├── pad.comp
+│       │       │       ├── pad_reflect_1d.comp
+│       │       │       ├── pool1d.comp
+│       │       │       ├── pool2d.comp
+│       │       │       ├── quantize_q8_1.comp
+│       │       │       ├── reglu.comp
+│       │       │       ├── repeat_back.comp
+│       │       │       ├── repeat.comp
+│       │       │       ├── rms_norm_back.comp
+│       │       │       ├── rms_norm.comp
+│       │       │       ├── rms_norm_partials.comp
+│       │       │       ├── roll.comp
+│       │       │       ├── rope_funcs.glsl
+│       │       │       ├── rope_head.glsl
+│       │       │       ├── rope_multi.comp
+│       │       │       ├── rope_neox.comp
+│       │       │       ├── rope_norm.comp
+│       │       │       ├── rope_params.glsl
+│       │       │       ├── rope_vision.comp
+│       │       │       ├── scale.comp
+│       │       │       ├── silu_back.comp
+│       │       │       ├── snake.comp
+│       │       │       ├── soft_max_back.comp
+│       │       │       ├── soft_max.comp
+│       │       │       ├── soft_max_large1.comp
+│       │       │       ├── soft_max_large2.comp
+│       │       │       ├── soft_max_large3.comp
+│       │       │       ├── soft_max_large_common.glsl
+│       │       │       ├── solve_tri.comp
+│       │       │       ├── ssm_conv.comp
+│       │       │       ├── ssm_scan.comp
+│       │       │       ├── sub.comp
+│       │       │       ├── sum_rows.comp
+│       │       │       ├── sum_rows.glsl
+│       │       │       ├── swiglu_clamp.comp
+│       │       │       ├── swiglu.comp
+│       │       │       ├── swiglu_oai.comp
+│       │       │       ├── timestep_embedding.comp
+│       │       │       ├── topk_argsort.comp
+│       │       │       ├── topk_moe.comp
+│       │       │       ├── topk_nary_search.comp
+│       │       │       ├── topk_radix_select.comp
+│       │       │       ├── tri.comp
+│       │       │       ├── types.glsl
+│       │       │       ├── unary.comp
+│       │       │       ├── upscale.comp
+│       │       │       ├── utils.glsl
+│       │       │       ├── vulkan-shaders-gen.cpp
+│       │       │       ├── wkv6.comp
+│       │       │       └── wkv7.comp
+│       │       ├── ggml-webgpu
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── ggml-webgpu.cpp
+│       │       │   ├── ggml-webgpu-shader-lib.hpp
+│       │       │   ├── pre_wgsl.hpp
+│       │       │   └── wgsl-shaders
+│       │       │       ├── add_id.wgsl
+│       │       │       ├── arange.wgsl
+│       │       │       ├── argmax.wgsl
+│       │       │       ├── argsort_merge.wgsl
+│       │       │       ├── argsort.wgsl
+│       │       │       ├── binary.wgsl
+│       │       │       ├── common_decls.tmpl
+│       │       │       ├── concat.wgsl
+│       │       │       ├── conv2d_dw.wgsl
+│       │       │       ├── conv2d.wgsl
+│       │       │       ├── cpy.wgsl
+│       │       │       ├── cumsum.wgsl
+│       │       │       ├── embed_wgsl.py
+│       │       │       ├── flash_attn_decls.tmpl
+│       │       │       ├── flash_attn_staging.tmpl
+│       │       │       ├── flash_attn_tile.wgsl
+│       │       │       ├── flash_attn_vec_blk.wgsl
+│       │       │       ├── flash_attn_vec_reduce.wgsl
+│       │       │       ├── flash_attn_vec_split.wgsl
+│       │       │       ├── flash_attn.wgsl
+│       │       │       ├── gated_delta_net.wgsl
+│       │       │       ├── get_rows.wgsl
+│       │       │       ├── glu.wgsl
+│       │       │       ├── im2col.wgsl
+│       │       │       ├── memset.wgsl
+│       │       │       ├── mul_mat_decls.tmpl
+│       │       │       ├── mul_mat_id_gather.wgsl
+│       │       │       ├── mul_mat_id_vec.wgsl
+│       │       │       ├── mul_mat_id.wgsl
+│       │       │       ├── mul_mat_reg_tile.wgsl
+│       │       │       ├── mul_mat_subgroup_matrix.wgsl
+│       │       │       ├── mul_mat_vec_acc.tmpl
+│       │       │       ├── mul_mat_vec_q_acc.tmpl
+│       │       │       ├── mul_mat_vec.wgsl
+│       │       │       ├── pad.wgsl
+│       │       │       ├── quant_inner_loops.tmpl
+│       │       │       ├── quantize_q8.wgsl
+│       │       │       ├── repeat.wgsl
+│       │       │       ├── rms_norm_mul.wgsl
+│       │       │       ├── rope.wgsl
+│       │       │       ├── row_norm.wgsl
+│       │       │       ├── scale.wgsl
+│       │       │       ├── set_rows_quant.wgsl
+│       │       │       ├── set_rows.wgsl
+│       │       │       ├── set.wgsl
+│       │       │       ├── soft_max.wgsl
+│       │       │       ├── solve_tri.wgsl
+│       │       │       ├── ssm_conv.wgsl
+│       │       │       ├── ssm_scan.wgsl
+│       │       │       ├── sum_rows.wgsl
+│       │       │       ├── unary.wgsl
+│       │       │       └── upscale.wgsl
+│       │       ├── ggml-zdnn
+│       │       │   ├── CMakeLists.txt
+│       │       │   ├── common.hpp
+│       │       │   ├── fattn.cpp
+│       │       │   ├── fattn.hpp
+│       │       │   ├── ggml-zdnn.cpp
+│       │       │   ├── mmf.cpp
+│       │       │   ├── mmf.hpp
+│       │       │   ├── mmq.cpp
+│       │       │   ├── mmq.hpp
+│       │       │   ├── quantize.cpp
+│       │       │   ├── quantize.hpp
+│       │       │   ├── scratch.cpp
+│       │       │   ├── scratch.hpp
+│       │       │   ├── utils.cpp
+│       │       │   └── utils.hpp
+│       │       ├── ggml-zendnn
+│       │       │   ├── CMakeLists.txt
+│       │       │   └── ggml-zendnn.cpp
+│       │       └── gguf.cpp
+│       ├── grammars
+│       │   ├── assistant.gbnf
+│       │   ├── chess.gbnf
+│       │   └── colors.gbnf
+│       ├── include
+│       │   ├── parakeet.h
+│       │   └── whisper.h
+│       ├── LICENSE
+│       ├── Makefile
+│       ├── media
+│       │   └── matmul.png
+│       ├── models
+│       │   ├── convert-h5-to-coreml.py
+│       │   ├── convert-h5-to-ggml.py
+│       │   ├── convert-parakeet-to-ggml.py
+│       │   ├── convert-pt-to-ggml.py
+│       │   ├── convert-silero-vad-to-ggml.py
+│       │   ├── convert-whisper-to-coreml.py
+│       │   ├── convert-whisper-to-openvino.py
+│       │   ├── download-coreml-model.sh
+│       │   ├── download-ggml-model.cmd
+│       │   ├── download-ggml-model.sh
+│       │   ├── download-vad-model.cmd
+│       │   ├── download-vad-model.sh
+│       │   ├── download-vitisai-model.cmd
+│       │   ├── download-vitisai-model.ps1
+│       │   ├── download-vitisai-model.sh
+│       │   ├── for-tests-ggml-base.bin
+│       │   ├── for-tests-ggml-base.en.bin
+│       │   ├── for-tests-ggml-large.bin
+│       │   ├── for-tests-ggml-medium.bin
+│       │   ├── for-tests-ggml-medium.en.bin
+│       │   ├── for-tests-ggml-parakeet-tdt-bad-nfft0.bin
+│       │   ├── for-tests-ggml-parakeet-tdt.bin
+│       │   ├── for-tests-ggml-small.bin
+│       │   ├── for-tests-ggml-small.en.bin
+│       │   ├── for-tests-ggml-tiny.bin
+│       │   ├── for-tests-ggml-tiny.en.bin
+│       │   ├── for-tests-silero-v6.2.0-ggml.bin
+│       │   ├── generate-coreml-interface.sh
+│       │   ├── generate-coreml-model.sh
+│       │   ├── generate-parakeet-test-model.py
+│       │   ├── ggml_to_pt.py
+│       │   ├── README.md
+│       │   ├── requirements-coreml.txt
+│       │   ├── requirements-openvino.txt
+│       │   └── requirements-parakeet.txt
+│       ├── README.md
+│       ├── README_sycl.md
+│       ├── samples
+│       │   ├── jfk.mp3
+│       │   ├── jfk.wav
+│       │   └── README.md
+│       ├── scripts
+│       │   ├── apple
+│       │   │   ├── validate-apps.sh
+│       │   │   ├── validate-ios.sh
+│       │   │   ├── validate-macos.sh
+│       │   │   ├── validate-tvos.sh
+│       │   │   └── validate-visionos.sh
+│       │   ├── bench-all-gg.txt
+│       │   ├── bench-all.sh
+│       │   ├── bench.py
+│       │   ├── bench-wts.sh
+│       │   ├── build-info.sh
+│       │   ├── convert-all.sh
+│       │   ├── deploy-wasm.sh
+│       │   ├── gen-authors.sh
+│       │   ├── get-flags.mk
+│       │   ├── make-release-checks.sh
+│       │   ├── make-release-desc.sh
+│       │   ├── quantize-all.sh
+│       │   ├── quantize-parakeet.sh
+│       │   ├── release.sh
+│       │   ├── sha-all.sh
+│       │   ├── sync-ggml-am.sh
+│       │   ├── sync-ggml.last
+│       │   ├── sync-ggml.sh
+│       │   ├── sync-llama.sh
+│       │   └── upload-parakeet.py
+│       ├── src
+│       │   ├── aneforge
+│       │   │   ├── whisper-aneforge.cpp
+│       │   │   └── whisper-aneforge.h
+│       │   ├── CMakeLists.txt
+│       │   ├── coreml
+│       │   │   ├── whisper-compat.h
+│       │   │   ├── whisper-compat.m
+│       │   │   ├── whisper-decoder-impl.h
+│       │   │   ├── whisper-decoder-impl.m
+│       │   │   ├── whisper-encoder.h
+│       │   │   ├── whisper-encoder-impl.h
+│       │   │   ├── whisper-encoder-impl.m
+│       │   │   └── whisper-encoder.mm
+│       │   ├── openvino
+│       │   │   ├── whisper-openvino-encoder.cpp
+│       │   │   └── whisper-openvino-encoder.h
+│       │   ├── parakeet-arch.h
+│       │   ├── parakeet.cpp
+│       │   ├── vitisai
+│       │   │   ├── whisper-vitisai-encoder.cpp
+│       │   │   ├── whisper-vitisai-encoder.h
+│       │   │   ├── whisper-vitisai-helpers.cpp
+│       │   │   └── whisper-vitisai-helpers.h
+│       │   ├── whisper-arch.h
+│       │   └── whisper.cpp
+│       └── tests
+│           ├── CMakeLists.txt
+│           ├── earnings21
+│           │   ├── eval.mk
+│           │   ├── eval.py
+│           │   ├── Makefile
+│           │   ├── normalizers
+│           │   │   ├── basic.py
+│           │   │   ├── english.json
+│           │   │   ├── english.py
+│           │   │   ├── __init__.py
+│           │   │   └── LICENSE
+│           │   ├── README.md
+│           │   └── requirements.txt
+│           ├── en-0-ref.txt
+│           ├── en-1-ref.txt
+│           ├── en-2-ref.txt
+│           ├── es-0-ref.txt
+│           ├── librispeech
+│           │   ├── eval.mk
+│           │   ├── eval.py
+│           │   ├── Makefile
+│           │   ├── normalizers
+│           │   │   ├── basic.py
+│           │   │   ├── english.json
+│           │   │   ├── english.py
+│           │   │   ├── __init__.py
+│           │   │   └── LICENSE
+│           │   ├── README.md
+│           │   └── requirements.txt
+│           ├── librispeech-parakeet
+│           │   ├── eval.mk
+│           │   ├── eval.py
+│           │   ├── Makefile
+│           │   ├── normalizers
+│           │   │   ├── basic.py
+│           │   │   ├── english.json
+│           │   │   ├── english.py
+│           │   │   ├── __init__.py
+│           │   │   └── LICENSE
+│           │   └── README.md
+│           ├── parakeet-expected-diffusion-output.txt
+│           ├── parakeet-expected-gb1-output.txt
+│           ├── parakeet-expected-jfk-output.txt
+│           ├── parakeet-verification.h
+│           ├── run-tests.sh
+│           ├── test-c.c
+│           ├── test-common-utf8.cpp
+│           ├── test-parakeet.cpp
+│           ├── test-parakeet-full.cpp
+│           ├── test-vad.cpp
+│           ├── test-vad-full.cpp
+│           ├── test-whisper-buffer-loader.cpp
+│           ├── test-whisper.js
+│           ├── test-whisper-lang-detect-abort.cpp
+│           └── test-whisper-zero-samples.cpp
+├── models
+│   └── ggml-base.bin
+├── src
+│   ├── lib.rs
+│   └── main.rs
+├── target
+│   ├── CACHEDIR.TAG
+│   └── debug
+│       ├── build
+│       │   ├── libc-945c46dfe6d56615
+│       │   │   ├── invoked.timestamp
+│       │   │   ├── out
+│       │   │   ├── output
+│       │   │   ├── root-output
+│       │   │   └── stderr
+│       │   ├── libc-e30a791ab2b05acb
+│       │   │   ├── build-script-build
+│       │   │   ├── build_script_build-e30a791ab2b05acb
+│       │   │   └── build_script_build-e30a791ab2b05acb.d
+│       │   ├── luna-stt-4c3fd7f8eb5fa7ed
+│       │   │   ├── build-script-build
+│       │   │   ├── build_script_build-4c3fd7f8eb5fa7ed
+│       │   │   └── build_script_build-4c3fd7f8eb5fa7ed.d
+│       │   ├── luna-stt-55c2c9590868930e
+│       │   │   ├── invoked.timestamp
+│       │   │   └── out
+│       │   │       ├── flag_check
+│       │   │       └── flag_check.cpp
+│       │   ├── parking_lot_core-59872705755d3dce
+│       │   │   ├── build-script-build
+│       │   │   ├── build_script_build-59872705755d3dce
+│       │   │   └── build_script_build-59872705755d3dce.d
+│       │   ├── parking_lot_core-775325932bb9b871
+│       │   │   ├── invoked.timestamp
+│       │   │   ├── out
+│       │   │   ├── output
+│       │   │   ├── root-output
+│       │   │   └── stderr
+│       │   ├── proc-macro2-59f70b2d15291624
+│       │   │   ├── invoked.timestamp
+│       │   │   ├── out
+│       │   │   ├── output
+│       │   │   ├── root-output
+│       │   │   └── stderr
+│       │   ├── proc-macro2-5fd71f8298ae91fb
+│       │   │   ├── build-script-build
+│       │   │   ├── build_script_build-5fd71f8298ae91fb
+│       │   │   └── build_script_build-5fd71f8298ae91fb.d
+│       │   ├── quote-3ee344e1f6248f56
+│       │   │   ├── build-script-build
+│       │   │   ├── build_script_build-3ee344e1f6248f56
+│       │   │   └── build_script_build-3ee344e1f6248f56.d
+│       │   └── quote-5ec3bf16f35775f5
+│       │       ├── invoked.timestamp
+│       │       ├── out
+│       │       ├── output
+│       │       ├── root-output
+│       │       └── stderr
+│       ├── deps
+│       │   ├── bytes-38fb3db51866bf84.d
+│       │   ├── bytes-4b6751af367a53d7.d
+│       │   ├── cc-e8bf3ffeb71193d8.d
+│       │   ├── cfg_if-b3cb6e82cc92ae06.d
+│       │   ├── cfg_if-f5a12bd7e740aa59.d
+│       │   ├── errno-6a390274672ed72a.d
+│       │   ├── find_msvc_tools-99e9bc912caa1193.d
+│       │   ├── libbytes-38fb3db51866bf84.rmeta
+│       │   ├── libbytes-4b6751af367a53d7.rlib
+│       │   ├── libbytes-4b6751af367a53d7.rmeta
+│       │   ├── libc-42d9036a690c9ace.d
+│       │   ├── libcc-e8bf3ffeb71193d8.rlib
+│       │   ├── libcc-e8bf3ffeb71193d8.rmeta
+│       │   ├── libc-e3f9b511be253225.d
+│       │   ├── libcfg_if-b3cb6e82cc92ae06.rlib
+│       │   ├── libcfg_if-b3cb6e82cc92ae06.rmeta
+│       │   ├── libcfg_if-f5a12bd7e740aa59.rmeta
+│       │   ├── liberrno-6a390274672ed72a.rmeta
+│       │   ├── libfind_msvc_tools-99e9bc912caa1193.rlib
+│       │   ├── libfind_msvc_tools-99e9bc912caa1193.rmeta
+│       │   ├── liblibc-42d9036a690c9ace.rmeta
+│       │   ├── liblibc-e3f9b511be253225.rlib
+│       │   ├── liblibc-e3f9b511be253225.rmeta
+│       │   ├── liblock_api-b59313b71286218d.rlib
+│       │   ├── liblock_api-b59313b71286218d.rmeta
+│       │   ├── liblock_api-bce0d02b6173a96b.rmeta
+│       │   ├── libmio-65e0f3884a81af55.rmeta
+│       │   ├── libparking_lot-51645fa301ceb917.rmeta
+│       │   ├── libparking_lot_core-e3f4550796cd7c2b.rmeta
+│       │   ├── libpin_project_lite-6f7d35c45b63c11f.rlib
+│       │   ├── libpin_project_lite-6f7d35c45b63c11f.rmeta
+│       │   ├── libpin_project_lite-878c75225d54a5aa.rmeta
+│       │   ├── libproc_macro2-ae2bd48ca0f77b26.rlib
+│       │   ├── libproc_macro2-ae2bd48ca0f77b26.rmeta
+│       │   ├── libquote-524efaee40f4b098.rlib
+│       │   ├── libquote-524efaee40f4b098.rmeta
+│       │   ├── libscopeguard-5cd31bc5354011e8.rlib
+│       │   ├── libscopeguard-5cd31bc5354011e8.rmeta
+│       │   ├── libscopeguard-68e526315860e0e9.rmeta
+│       │   ├── libshlex-50fddde71e8c4f05.rlib
+│       │   ├── libshlex-50fddde71e8c4f05.rmeta
+│       │   ├── libsignal_hook_registry-3fbd20f0e609870e.rmeta
+│       │   ├── libsmallvec-0d129ae88cbd9d49.rlib
+│       │   ├── libsmallvec-0d129ae88cbd9d49.rmeta
+│       │   ├── libsmallvec-af9f4e082118ffbc.rmeta
+│       │   ├── libsocket2-b03f0fef8d388e13.rmeta
+│       │   ├── libsyn-8ee8e08ff07bba5e.rlib
+│       │   ├── libsyn-8ee8e08ff07bba5e.rmeta
+│       │   ├── libtokio_macros-7c5194be7e8aa253.so
+│       │   ├── libunicode_ident-5942d231397dda62.rlib
+│       │   ├── libunicode_ident-5942d231397dda62.rmeta
+│       │   ├── lock_api-b59313b71286218d.d
+│       │   ├── lock_api-bce0d02b6173a96b.d
+│       │   ├── mio-65e0f3884a81af55.d
+│       │   ├── parking_lot-51645fa301ceb917.d
+│       │   ├── parking_lot_core-e3f4550796cd7c2b.d
+│       │   ├── pin_project_lite-6f7d35c45b63c11f.d
+│       │   ├── pin_project_lite-878c75225d54a5aa.d
+│       │   ├── proc_macro2-ae2bd48ca0f77b26.d
+│       │   ├── quote-524efaee40f4b098.d
+│       │   ├── scopeguard-5cd31bc5354011e8.d
+│       │   ├── scopeguard-68e526315860e0e9.d
+│       │   ├── shlex-50fddde71e8c4f05.d
+│       │   ├── signal_hook_registry-3fbd20f0e609870e.d
+│       │   ├── smallvec-0d129ae88cbd9d49.d
+│       │   ├── smallvec-af9f4e082118ffbc.d
+│       │   ├── socket2-b03f0fef8d388e13.d
+│       │   ├── syn-8ee8e08ff07bba5e.d
+│       │   ├── tokio_macros-7c5194be7e8aa253.d
+│       │   └── unicode_ident-5942d231397dda62.d
+│       ├── examples
+│       └── incremental
+│           └── build_script_build-1bp20nuurxcd3
+│               ├── s-hnwxt120gc-0mhmt2h-d7xh1ny28j3a1v943hj2r45le
+│               │   ├── 0alcu2j0xocukw0fpl85a0tn5.o
+│               │   ├── 1wqxy7u203avvst4mg8qet222.o
+│               │   ├── 1zgzv22unv3z90nut3pzsfo47.o
+│               │   ├── 1zo4t3f79qfqd8c6dirlbnopj.o
+│               │   ├── 4lyocjdt3upzahv6as5yi8jz4.o
+│               │   ├── 6j9ptg3nph86piuvwb21x1g90.o
+│               │   ├── 78x1g33gz1reivet7fr99rzx3.o
+│               │   ├── 98jjx1tryw3ins343hj5mtula.o
+│               │   ├── a0n7fphfwi0gva2j5zi153yf3.o
+│               │   ├── dep-graph.bin
+│               │   ├── query-cache.bin
+│               │   └── work-products.bin
+│               ├── s-hnwxt120gc-0mhmt2h.lock
+│               ├── s-hnwxvqp6z0-1amug3d-2w2o035ftpb212qykwp3catl1
+│               │   ├── 0alcu2j0xocukw0fpl85a0tn5.o
+│               │   ├── 10z1q0s0i7k83x1rth1m82p6g.o
+│               │   ├── 1wqxy7u203avvst4mg8qet222.o
+│               │   ├── 1zgzv22unv3z90nut3pzsfo47.o
+│               │   ├── 1zo4t3f79qfqd8c6dirlbnopj.o
+│               │   ├── 4lyocjdt3upzahv6as5yi8jz4.o
+│               │   ├── 6j9ptg3nph86piuvwb21x1g90.o
+│               │   ├── 78x1g33gz1reivet7fr99rzx3.o
+│               │   ├── 8oo212k987mw0pq5zce3vb9qz.o
+│               │   ├── 98jjx1tryw3ins343hj5mtula.o
+│               │   ├── a0n7fphfwi0gva2j5zi153yf3.o
+│               │   ├── dep-graph.bin
+│               │   ├── el7zcixp6j5uzrusqtu1hnv36.o
+│               │   ├── query-cache.bin
+│               │   └── work-products.bin
+│               └── s-hnwxvqp6z0-1amug3d.lock
+└── tree.txt
+
+298 directories, 2259 files

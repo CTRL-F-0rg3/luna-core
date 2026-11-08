@@ -1,0 +1,20 @@
+[package]
+name = "luna-stt"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "luna_stt"
+path = "src/lib.rs"
+
+[[bin]]
+name = "stt-test"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+luna-plugins = { path = "../luna-plugins" }
+luna-audio = { path = "../luna-audio" }
+
+[build-dependencies]
+cc = "1.0"

@@ -1,0 +1,1 @@
+/home/ctrl/project/luna-core/luna-stt/target/debug/stt-test: /home/ctrl/project/luna-core/luna-stt/build.rs /home/ctrl/project/luna-core/luna-stt/src/lib.rs /home/ctrl/project/luna-core/luna-stt/src/main.rs

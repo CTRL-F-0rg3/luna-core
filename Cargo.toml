@@ -1,0 +1,2 @@
+[workspace]
+members = ["luna-stt", "luna-brain", "luna-plugins", "luna-audio"]
